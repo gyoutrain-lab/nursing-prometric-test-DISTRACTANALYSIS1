@@ -1,63 +1,61 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prometric Practice Exam - Fundamental Nursing</title>
+    <title>SCFHS ERROR RESISTANCE SIMULATOR (120 ITEMS)</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; background-color: #f4f7f6; color: #333; margin: 0; padding: 20px; }
-        .container { max-width: 900px; margin: auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        header { border-bottom: 3px solid #2c3e50; padding-bottom: 20px; margin-bottom: 30px; }
-        h1 { color: #2c3e50; margin: 0; font-size: 24px; }
-        #timer { font-size: 20px; font-weight: bold; color: #e74c3c; float: right; }
-        .info-bar { background-color: #f9f9f9; padding: 15px; border-radius: 8px; margin-top: 20px; display: flex; justify-content: space-between; }
-        .question-block { margin-bottom: 30px; padding: 20px; border: 1px solid #edf2f7; border-radius: 8px; transition: 0.3s; }
-        .question-text { font-weight: bold; font-size: 1.1em; margin-bottom: 15px; }
-        .options label { display: block; background: #f8fafc; margin: 8px 0; padding: 12px; border-radius: 5px; cursor: pointer; border: 1px solid #e2e8f0; transition: 0.2s; }
-        .options label:hover { background: #edf2f7; }
-        input[type="radio"] { margin-right: 10px; }
-        .btn-submit { display: block; width: 100%; padding: 15px; background: #2980b9; color: white; border: none; border-radius: 5px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 20px; }
-        .btn-submit:hover { background: #2471a3; }
-        #resultsSummary { display: none; margin-top: 30px; border: 2px solid #2c3e50; border-radius: 10px; padding: 25px; background: #fff; }
-        .rationale-box { margin-top: 10px; font-size: 0.9em; background: #f1f8ff; padding: 15px; border-radius: 5px; border-left: 5px solid #2980b9; }
-        .correct { border-left: 8px solid #27ae60 !important; background: #f0fff4 !important; }
-        .wrong { border-left: 8px solid #e74c3c !important; background: #fff5f5 !important; }
+        :root { --crimson: #800000; --gold: #b8860b; --dark: #0a0a0a; --gray: #1a1a1a; --text: #e0e0e0; }
+        body { font-family: 'Courier New', Courier, monospace; background: var(--dark); color: var(--text); line-height: 1.6; padding: 20px; }
+        .wrapper { max-width: 900px; margin: auto; border: 2px solid var(--gold); padding: 30px; background: var(--gray); }
+        .warning-header { text-align: center; border-bottom: 2px solid var(--crimson); margin-bottom: 30px; padding-bottom: 10px; }
+        .warning-header h1 { color: var(--crimson); letter-spacing: 3px; margin: 0; }
+        .warning-header p { color: var(--gold); font-weight: bold; font-size: 0.9rem; }
+        .q-card { margin-bottom: 50px; padding: 20px; border-left: 4px solid var(--gold); background: #222; }
+        .vignette { color: #aaa; margin-bottom: 15px; font-style: italic; border-bottom: 1px solid #333; padding-bottom: 10px; }
+        .question { font-weight: bold; font-size: 1.1rem; color: #fff; display: block; margin-bottom: 20px; }
+        .opt { display: block; padding: 12px; margin: 8px 0; background: #111; border: 1px solid #444; cursor: pointer; transition: 0.3s; }
+        .opt:hover { border-color: var(--gold); background: #1a1a1a; }
+        .opt input { margin-right: 15px; accent-color: var(--gold); }
+        .btn-submit { width: 100%; background: var(--crimson); color: white; padding: 20px; border: none; font-size: 1.2rem; cursor: pointer; font-weight: bold; margin-top: 30px; }
+        #transcript { display: none; background: white; color: black; padding: 40px; border: 10px double black; }
+        .result-row { border-bottom: 1px solid #ddd; padding: 15px 0; }
+        .fail-marker { color: #d00; font-weight: bold; text-transform: uppercase; }
+        .pass-marker { color: #008000; font-weight: bold; }
+        .rationale { font-size: 0.85rem; background: #f0f0f0; padding: 10px; margin-top: 5px; border-left: 3px solid var(--crimson); }
+        .footer-note { text-align: center; color: var(--gold); margin-top: 20px; font-size: 0.8rem; border-top: 1px dashed var(--gold); padding-top: 10px; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <header>
-        <span id="timer">60:00</span>
-        <h1>PROMETRIC EXAM: FUNDAMENTAL NURSING</h1>
-        <div class="info-bar">
-            <div><strong>Candidate:</strong> <input type="text" id="candidateName" placeholder="Enter Name"></div>
-            <div><strong>Passing Grade:</strong> <span style="color: #27ae60;">70%</span></div>
-        </div>
-    </header>
-
-    <div id="quizContainer">
-        </div>
-
-    <div id="submitArea">
-        <button class="btn-submit" onclick="calculateResults()">SUBMIT FINAL EXAM</button>
+<div id="exam-view" class="wrapper">
+    <div class="warning-header">
+        <h1>PROMETRIC SAFETY FILTER</h1>
+        <p>LEVEL 4: ERROR RESISTANCE & TRAP DETECTION (120 ITEMS)</p>
     </div>
 
-    <div id="resultsSummary">
-        <h2 style="text-align: center;">EXAM PERFORMANCE REPORT</h2>
-        <div style="display: flex; justify-content: space-around; text-align: center; margin: 20px 0;">
-            <div><p>Score</p><h3 id="finalScoreText">0/0</h3></div>
-            <div><p>Percentage</p><h3 id="finalPercentageText">0%</h3></div>
-            <div><p>Result</p><h3 id="passFailStatus">---</h3></div>
-        </div>
-        <hr>
-        <h4>ITEM ANALYSIS & RATIONALE</h4>
-        <div id="detailedReview"></div>
-        <button class="btn-submit" onclick="location.reload()" style="background:#95a5a6;">RETAKE EXAM</button>
+    <div style="background: #000; padding: 15px; margin-bottom: 30px; border: 1px dashed var(--gold);">
+        <label style="color:var(--gold)">CANDIDATE IDENTIFICATION:</label><br>
+        <input type="text" id="candidate" style="width:100%; background:transparent; border:none; border-bottom:1px solid var(--gold); color:white; font-size:1.2rem; outline:none;" placeholder="Enter Name...">
     </div>
+
+    <div id="quiz-mount"></div>
+    
+    <button class="btn-submit" onclick="analyzePerformance()">PROCESS TRANSCRIPT</button>
+</div>
+
+<div id="transcript" class="wrapper">
+    <div class="warning-header">
+        <h1 style="color: #000;">PERFORMANCE TRANSCRIPT</h1>
+        <p style="color: #333;">Saudi Commission for Health Specialties | Level 4 Evaluator</p>
+    </div>
+    <div id="meta-data" style="background: #f9f9f9; padding: 20px; border: 1px solid #000; margin-bottom: 30px; font-family: monospace;"></div>
+    <div id="analysis-results"></div>
+    <button class="btn-submit" style="background: #000;" onclick="window.print()">PRINT OFFICIAL RECORD</button>
+    <button class="btn-submit" style="background: #444; margin-top: 10px;" onclick="location.reload()">RETAKE SIMULATION</button>
 </div>
 
 <script>
-// I have truncated the questions for space, but ensured the structure matches your needs perfectly.
 const questions = [
     {
         id: 1,
@@ -1601,88 +1599,54 @@ const questions = [
     }
 ];
 
-// 1. Function to display questions on the page
-function renderQuestions() {
-    const container = document.getElementById('quizContainer');
-    let html = '';
-    
-    questions.forEach((q, index) => {
-        html += `
-        <div class="question-block" id="block-${q.id}">
-            <div class="question-text">${index + 1}. ${q.vignette}</div>
-            <div class="options">
-                ${Object.entries(q.options).map(([letter, text]) => `
-                    <label>
-                        <input type="radio" name="q${q.id}" value="${letter}">
-                        ${letter}: ${text}
-                    </label>
-                `).join('')}
-            </div>
-        </div>`;
-    });
-    
-    container.innerHTML = html;
+function renderQuiz() {
+    const mount = document.getElementById('quiz-mount');
+    mount.innerHTML = questions.map((q, i) => `
+        <div class="q-card">
+            <div class="vignette">${i+1}. ${q.v}</div>
+            <label class="question">${q.q}</label>
+            ${q.o.map((opt, j) => `
+                <label class="opt">
+                    <input type="radio" name="q${i}" value="${j}"> ${opt}
+                </label>
+            `).join('')}
+        </div>
+    `).join('');
 }
 
-// 2. Timer Logic
-let timeLeft = 3600; // 60 minutes
-const timerEl = document.getElementById('timer');
-
-const timerInterval = setInterval(() => {
-    let minutes = Math.floor(timeLeft / 60);
-    let seconds = timeLeft % 60;
-    timerEl.innerText = `Time Remaining: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-    
-    if (timeLeft <= 0) {
-        clearInterval(timerInterval);
-        calculateResults();
-    }
-    timeLeft--;
-}, 1000);
-
-// 3. Calculation and Review Logic
-function calculateResults() {
-    clearInterval(timerInterval); // Stop timer
+function analyzePerformance() {
+    const candidateName = document.getElementById('candidate').value || "ANONYMOUS";
     let score = 0;
-    let reviewHtml = '';
+    let report = "";
 
-    questions.forEach((q) => {
-        const selected = document.querySelector(`input[name="q${q.id}"]:checked`);
-        const isCorrect = selected && selected.value === q.correct;
-        
-        if (isCorrect) score++;
+    questions.forEach((q, i) => {
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        const userVal = selected ? parseInt(selected.value) : null;
+        const isCorrect = userVal === q.a;
+        if(isCorrect) score++;
 
-        // Color the question blocks
-        const block = document.getElementById(`block-${q.id}`);
-        block.className = `question-block ${isCorrect ? 'correct' : 'wrong'}`;
-
-        // Build review details
-        reviewHtml += `
-            <div style="margin-bottom: 15px;">
-                <strong>Q${q.id}: ${isCorrect ? '✅ Correct' : '❌ Incorrect'}</strong><br>
-                Correct Answer: <b>${q.correct}</b><br>
-                <div class="rationale-box">${q.rationale}</div>
-            </div>
-        `;
+        report += `
+            <div class="result-row">
+                <strong>Item ${i+1}:</strong> ${isCorrect ? '<span class="pass-marker">[DETECTION SUCCESS]</span>' : '<span class="fail-marker">[SAFETY TRAP TRIGGERED]</span>'}
+                <p style="margin:5px 0"><em>Situation: ${q.v}</em></p>
+                <div class="rationale"><strong>Rationale:</strong> ${q.r}</div>
+            </div>`;
     });
 
-    const percentage = Math.round((score / questions.length) * 100);
+    document.getElementById('meta-data').innerHTML = `
+        CANDIDATE: ${candidateName.toUpperCase()}<br>
+        FINAL SCORE: ${score} / 100<br>
+        STATUS: ${score >= 60 ? 'ELIGIBLE' : 'FAILURE'}<br>
+        DATE: ${new Date().toLocaleString()}
+    `;
     
-    // Update UI
-    document.getElementById('finalScoreText').innerText = `${score}/${questions.length}`;
-    document.getElementById('finalPercentageText').innerText = `${percentage}%`;
-    document.getElementById('passFailStatus').innerText = percentage >= 70 ? "PASSED" : "FAILED";
-    document.getElementById('passFailStatus').style.color = percentage >= 70 ? "green" : "red";
-    
-    document.getElementById('detailedReview').innerHTML = reviewHtml;
-    document.getElementById('resultsSummary').style.display = 'block';
-    document.getElementById('submitArea').style.display = 'none';
-
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.getElementById('analysis-results').innerHTML = report;
+    document.getElementById('exam-view').style.display = "none";
+    document.getElementById('transcript').style.display = "block";
+    window.scrollTo(0,0);
 }
 
-// Start rendering
-window.onload = renderQuestions;
+renderQuiz();
 </script>
 
 </body>
