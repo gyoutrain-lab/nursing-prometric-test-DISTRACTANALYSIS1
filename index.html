@@ -51,494 +51,426 @@
 
 <script>
 // --- DATA SOAL ANDA ---
-const questions = [
+    const questions = [
     {
         id: 1,
-        vignette: "A 56-year-old man is 8 hours postoperative following an abdominoperineal resection with the creation of a colostomy. During the routine assessment, the nurse inspects the new stoma site. Which of the following findings should the nurse expect at this early stage after surgery?",
+        vignette: `A 56-year-old man is 8 hours postoperative following an abdominoperineal resection with the creation of a colostomy. During the routine assessment, the nurse inspects the new stoma site. Which of the following findings should the nurse expect at this early stage after surgery?`,
         options: {
-            A: "The stoma is pink to red and moist",
-            B: "The stoma is pale and dry",
-            C: "The stoma is dark purple and firm",
-            D: "The stoma is brown with scant bleeding"
+            A: `The stoma is pink to red and moist`,
+            B: `The stoma is pale and dry`,
+            C: `The stoma is dark purple and firm`,
+            D: `The stoma is brown with scant bleeding`
         },
-        correct: "A",
-        scfhs_rationale: "SCFHS prioritizes recognizing expected vs abnormal findings. Pink/red and moist is the physiologic expectation for healthy tissue perfusion."
+        correct: `A`,
+        scfhs_rationale: `SCFHS prioritizes recognizing expected vs abnormal findings. Pink/red and moist is the physiologic expectation for healthy tissue perfusion.`
     },
     {
         id: 2,
-        vignette: "A patient with a history of Myocardial Infarction is scheduled for a Contrast-CT. The nurse notes the patient is taking Metformin for Type 2 Diabetes. Which action is the absolute priority to ensure patient safety?",
+        vignette: `A patient with a history of Myocardial Infarction is scheduled for a Contrast-CT. The nurse notes the patient is taking Metformin for Type 2 Diabetes. Which action is the absolute priority to ensure patient safety?`,
         options: {
-            A: "Ensure the patient remains NPO for 4 hours before the test.",
-            B: "Hold Metformin 48 hours after the procedure and monitor Creatinine.",
-            C: "Administer a dose of Metformin immediately before the procedure.",
-            D: "Advise the patient to drink more water 2 hours after the scan."
+            A: `Ensure the patient remains NPO for 4 hours before the test.`,
+            B: `Hold Metformin 48 hours after the procedure and monitor Creatinine.`,
+            C: `Administer a dose of Metformin immediately before the procedure.`,
+            D: `Advise the patient to drink more water 2 hours after the scan.`
         },
-        correct: "B",
-        contentValue: "NPSG: Medication Safety (Contrast-Induced Nephropathy)",
-        str_rationale: "STR focuses on immediate prep (A) or general hydration (D).",
-        scfhs_rationale: "SCFHS trapping: Metformin + Contrast = Lactic Acidosis risk. B is the only action preventing a fatal complication (Safe Action). C is Unsafe.",
+        correct: `B`,
+        scfhs_rationale: `SCFHS trapping: Metformin + Contrast = Lactic Acidosis risk. B is the only action preventing a fatal complication (Safe Action). C is Unsafe.`
     },
     {
         id: 3,
-        vignette: "An elderly patient is admitted with suspected Hip Fracture. The nurse finds the patient agitated and trying to climb over the side rails. What is the most appropriate initial nursing intervention?",
+        vignette: `An elderly patient is admitted with suspected Hip Fracture. The nurse finds the patient agitated and trying to climb over the side rails. What is the most appropriate initial nursing intervention?`,
         options: {
-            A: "Apply bilateral soft wrist restraints immediately.",
-            B: "Request a prescription for a sedative medication.",
-            C: "Assign a staff member for one-to-one observation.",
-            D: "Wait for the family to arrive to calm the patient down."
+            A: `Apply bilateral soft wrist restraints immediately.`,
+            B: `Request a prescription for a sedative medication.`,
+            C: `Assign a staff member for one-to-one observation.`,
+            D: `Wait for the family to arrive to calm the patient down.`
         },
-        correct: "C",
-        contentValue: "NPSG: Fall Prevention & Restraint Policy",
-        str_rationale: "STR focuses on physical control (A) or pharmacological control (B).",
-        scfhs_rationale: "SCFHS mandates 'Least Restrictive Environment'. Observation (C) is the Safe Action. A is Unsafe without failing other measures. B & D are Delay-based.",
+        correct: `C`,
+        scfhs_rationale: `SCFHS mandates 'Least Restrictive Environment'. Observation (C) is the Safe Action. A is Unsafe without failing other measures.`
     },
     {
         id: 4,
-        vignette: "A 29-year-old Primigravida at 34 weeks gestation is admitted with a blood pressure of 165/110 mmHg, 3+ proteinuria, and a severe headache. While the nurse is preparing the room, the patient begins to have a tonic-clonic seizure. Which action must the nurse perform first?",
+        vignette: `A 29-year-old Primigravida at 34 weeks gestation is admitted with a blood pressure of 165/110 mmHg, 3+ proteinuria, and a severe headache. While the nurse is preparing the room, the patient begins to have a tonic-clonic seizure. Which action must the nurse perform first?`,
         options: {
-            A: "Turn the patient onto her side and clear the environment.",
-            B: "Administer a loading dose of Magnesium Sulfate IV.",
-            C: "Insert a padded tongue blade to prevent tongue biting.",
-            D: "Notify the obstetrician for an emergency Cesarean section."
+            A: `Turn the patient onto her side and clear the environment.`,
+            B: `Administer a loading dose of Magnesium Sulfate IV.`,
+            C: `Insert a padded tongue blade to prevent tongue biting.`,
+            D: `Notify the obstetrician for an emergency Cesarean section.`
         },
-        correct: "A",
-        contentValue: "NPSG: Patient Safety (Eclampsia Seizure Management)",
-        str_rationale: "STR may prioritize the definitive medication (B) or the surgical solution (D).",
-        scfhs_rationale: "SCFHS prioritizes immediate airway protection and safety (A). (C) is a classic 'Unsafe' option in modern nursing. (B) is correct but comes after physical safety."
+        correct: `A`,
+        scfhs_rationale: `SCFHS prioritizes immediate airway protection and safety (A). (C) is a classic 'Unsafe' option. (B) is correct but comes after physical safety.`
     },
     {
         id: 5,
-        vignette: "The nurse is caring for a patient receiving a blood transfusion. Ten minutes into the infusion, the patient reports lumbar pain and dyspnea. The nurse observes hematuria in the urinary drainage bag. After stopping the transfusion, what is the priority action?",
+        vignette: `The nurse is caring for a patient receiving a blood transfusion. Ten minutes into the infusion, the patient reports lumbar pain and dyspnea. The nurse observes hematuria in the urinary drainage bag. After stopping the transfusion, what is the priority action?`,
         options: {
-            A: "Slow the infusion rate to keep the vein open.",
-            B: "Infuse Normal Saline using a new administration set.",
-            C: "Administer Diphenhydramine as per standing orders.",
-            D: "Send the remaining blood bag to the lab for re-typing."
+            A: `Slow the infusion rate to keep the vein open.`,
+            B: `Infuse Normal Saline using a new administration set.`,
+            C: `Administer Diphenhydramine as per standing orders.`,
+            D: `Send the remaining blood bag to the lab for re-typing.`
         },
-        correct: "B",
-        contentValue: "NPSG: Clinical Governance (Hemolytic Reaction)",
-        str_rationale: "STR might focus on documentation or lab analysis (D).",
-        scfhs_rationale: "SCFHS trapping: (A) is Unsafe (never restart/slow blood in a reaction). (B) is the Safe Action to maintain renal perfusion. (C) is for minor allergic reactions, not hemolytic."
+        correct: `B`,
+        scfhs_rationale: `SCFHS trapping: (A) is Unsafe (never restart/slow blood in a reaction). (B) is the Safe Action to maintain renal perfusion.`
     },
     {
         id: 6,
-        vignette: "A 72-year-old male with Chronic Obstructive Pulmonary Disease (COPD) is receiving oxygen via nasal cannula at 2L/min. The nurse finds the patient confused, with a respiratory rate of 8 breaths/min and a pulse oximetry of 91%. Which action should the nurse take first?",
+        vignette: `A 72-year-old male with Chronic Obstructive Pulmonary Disease (COPD) is receiving oxygen via nasal cannula at 2L/min. The nurse finds the patient confused, with a respiratory rate of 8 breaths/min and a pulse oximetry of 91%. Which action should the nurse take first?`,
         options: {
-            A: "Increase the oxygen flow to 6L/min via simple mask.",
-            B: "Assess the patient's arterial blood gas (ABG) levels.",
-            C: "Stimulate the patient and encourage deep breathing.",
-            D: "Check the oxygen equipment for proper functioning."
+            A: `Increase the oxygen flow to 6L/min via simple mask.`,
+            B: `Assess the patient's arterial blood gas (ABG) levels.`,
+            C: `Stimulate the patient and encourage deep breathing.`,
+            D: `Check the oxygen equipment for proper functioning.`
         },
-        correct: "C",
-        contentValue: "Respiratory Failure vs. CO2 Narcosis",
-        str_rationale: "STR focuses on equipment (D) or increasing oxygen (A) due to low SpO2.",
-        scfhs_rationale: "SCFHS trapping: (A) is Unsafe as it can worsen CO2 narcosis in COPD. (B) is a Delay-based action. (C) is the initial Safe Action to improve ventilation."
+        correct: `C`,
+        scfhs_rationale: `SCFHS trapping: (A) is Unsafe as it can worsen CO2 narcosis in COPD. (C) is the initial Safe Action to improve ventilation.`
     },
     {
         id: 7,
-        vignette: "A nurse is preparing to administer Potassium Chloride (KCl) 20 mEq to a patient with a potassium level of 3.0 mEq/L. The pharmacy sends a concentrated vial. Which method of administration is correct?",
+        vignette: `A nurse is preparing to administer Potassium Chloride (KCl) 20 mEq to a patient with a potassium level of 3.0 mEq/L. The pharmacy sends a concentrated vial. Which method of administration is correct?`,
         options: {
-            A: "Administer the KCl via IV push over 5 minutes.",
-            B: "Dilute in 100mL NS and infuse over 1 hour via pump.",
-            C: "Mix the KCl into a 1L bag and hang it by gravity.",
-            D: "Wait for the next lab result to confirm the level."
+            A: `Administer the KCl via IV push over 5 minutes.`,
+            B: `Dilute in 100mL NS and infuse over 1 hour via pump.`,
+            C: `Mix the KCl into a 1L bag and hang it by gravity.`,
+            D: `Wait for the next lab result to confirm the level.`
         },
-        correct: "B",
-        contentValue: "NPSG: High-Alert Medication Safety",
-        str_rationale: "STR might use gravity (C) or delay for more data (D).",
-        scfhs_rationale: "SCFHS: IV push (A) is a fatal 'Unsafe' option. Gravity (C) is unsafe for high-alert meds. (B) is the strictly regulated 'Safe Action'."
+        correct: `B`,
+        scfhs_rationale: `SCFHS: IV push (A) is a fatal 'Unsafe' option. Gravity (C) is unsafe for high-alert meds. (B) is the strictly regulated 'Safe Action'.`
     },
     {
         id: 8,
-        vignette: "Following a cardiac catheterization, a patient develops a large hematoma at the femoral insertion site. The site is firm, and the pedal pulse is diminished. What is the nurse's immediate priority?",
+        vignette: `Following a cardiac catheterization, a patient develops a large hematoma at the femoral insertion site. The site is firm, and the pedal pulse is diminished. What is the nurse's immediate priority?`,
         options: {
-            A: "Apply firm manual pressure to the site.",
-            B: "Mark the edges of the hematoma with a pen.",
-            C: "Apply a warm compress to promote absorption.",
-            D: "Perform a neurovascular check on the other leg."
+            A: `Apply firm manual pressure to the site.`,
+            B: `Mark the edges of the hematoma with a pen.`,
+            C: `Apply a warm compress to promote absorption.`,
+            D: `Perform a neurovascular check on the other leg.`
         },
-        correct: "A",
-        contentValue: "Post-procedural Complications",
-        str_rationale: "STR focuses on monitoring/marking (B).",
-        scfhs_rationale: "SCFHS trapping: Diminished pulse indicates active bleeding/compression. Manual pressure (A) is the immediate Safe Action. (C) is Unsafe (vasodilation). (D) is a Delay."
+        correct: `A`,
+        scfhs_rationale: `SCFHS trapping: Diminished pulse indicates active bleeding. Manual pressure (A) is the immediate Safe Action.`
     },
     {
         id: 9,
-        vignette: "A nurse is assigned to a patient who is scheduled for an elective cholecystectomy. During the pre-operative check, the patient states, 'I am still not sure if I really need this surgery.' The consent form is already signed. What is the nurse's priority?",
+        vignette: `A nurse is assigned to a patient who is scheduled for an elective cholecystectomy. During the pre-operative check, the patient states, 'I am still not sure if I really need this surgery.' The consent form is already signed. What is the nurse's priority?`,
         options: {
-            A: "Reassure the patient that the surgeon is highly experienced.",
-            B: "Notify the surgeon that the patient has further questions.",
-            C: "Proceed with pre-operative medication administration.",
-            D: "Explain the risks and benefits of the surgery to the patient."
+            A: `Reassure the patient that the surgeon is highly experienced.`,
+            B: `Notify the surgeon that the patient has further questions.`,
+            C: `Proceed with pre-operative medication administration.`,
+            D: `Explain the risks and benefits of the surgery to the patient.`
         },
-        correct: "B",
-        contentValue: "Clinical Governance: Informed Consent",
-        str_rationale: "STR often tries to 'educate' (D) or 'reassure' (A).",
-        scfhs_rationale: "SCFHS: Explaining risks (D) is the surgeon's legal duty, not the nurse's. (C) is Unsafe as it ignores the patient's right to withdraw consent. (B) is the Safe Action."
+        correct: `B`,
+        scfhs_rationale: `SCFHS: Explaining risks (D) is the surgeon's legal duty. (C) is Unsafe as it ignores the right to withdraw consent. (B) is the Safe Action.`
     },
     {
         id: 10,
-        vignette: "A patient with a suspected C-spine injury is brought to the Emergency Department. The nurse needs to open the airway to provide rescue breaths. Which technique should be used?",
+        vignette: `A patient with a suspected C-spine injury is brought to the Emergency Department. The nurse needs to open the airway to provide rescue breaths. Which technique should be used?`,
         options: {
-            A: "Head-tilt, chin-lift maneuver.",
-            B: "Flexion of the neck with a pillow support.",
-            C: "Jaw-thrust maneuver without neck extension.",
-            D: "Lateral recovery position."
+            A: `Head-tilt, chin-lift maneuver.`,
+            B: `Flexion of the neck with a pillow support.`,
+            C: `Jaw-thrust maneuver without neck extension.`,
+            D: `Lateral recovery position.`
         },
-        correct: "C",
-        contentValue: "Trauma Care Protocols",
-        str_rationale: "STR might choose the standard (A) or comfort (B).",
-        scfhs_rationale: "SCFHS: (A) is Unsafe in C-spine trauma. (B) is Unsafe. (C) is the only Safe Action that protects the spinal cord while maintaining the airway."
+        correct: `C`,
+        scfhs_rationale: `SCFHS: (A) is Unsafe in C-spine trauma. (C) is the only Safe Action that protects the spinal cord while maintaining the airway.`
     },
-  {
+    {
         id: 11,
-        vignette: "A 4-year-old child is brought to the Emergency Room with high fever, muffled voice, and drooling. The child is sitting in a 'tripod' position and appears anxious. Which action should the nurse avoid?",
+        vignette: `A 4-year-old child is brought to the Emergency Room with high fever, muffled voice, and drooling. The child is sitting in a 'tripod' position and appears anxious. Which action should the nurse avoid?`,
         options: {
-            A: "Placing the child in a high-Fowler’s position.",
-            B: "Inspecting the throat with a tongue depressor.",
-            C: "Administering humidified oxygen via blow-by.",
-            D: "Obtaining a peripheral IV line after the doctor arrives."
+            A: `Placing the child in a high-Fowler’s position.`,
+            B: `Inspecting the throat with a tongue depressor.`,
+            C: `Administering humidified oxygen via blow-by.`,
+            D: `Obtaining a peripheral IV line after the doctor arrives.`
         },
-        correct: "B",
-        contentValue: "Pediatric Emergencies (Epiglottitis)",
-        str_rationale: "STR may prioritize assessment (B) to see the 'cherry red' epiglottis.",
-        scfhs_rationale: "SCFHS trapping: (B) is an Unsafe action that can cause immediate laryngospasm and airway loss. (A) and (C) are Safe Actions. (D) is a Delay-based but safer alternative to (B)."
+        correct: `B`,
+        scfhs_rationale: `SCFHS trapping: (B) is an Unsafe action that can cause immediate laryngospasm and airway loss.`
     },
     {
         id: 12,
-        vignette: "The nurse is monitoring a patient 2 hours post-Percutaneous Coronary Intervention (PCI) via the radial artery. The patient's hand becomes pale, cool to the touch, and the capillary refill is >4 seconds. What is the priority nursing intervention?",
+        vignette: `The nurse is monitoring a patient 2 hours post-Percutaneous Coronary Intervention (PCI) via the radial artery. The patient's hand becomes pale, cool to the touch, and the capillary refill is >4 seconds. What is the priority nursing intervention?`,
         options: {
-            A: "Document the findings as a normal post-procedural vasospasm.",
-            B: "Loosen the compression device (TR band) slightly per protocol.",
-            C: "Encourage the patient to perform vigorous finger exercises.",
-            D: "Administer a PRN dose of Aspirin as ordered."
+            A: `Document the findings as a normal post-procedural vasospasm.`,
+            B: `Loosen the compression device (TR band) slightly per protocol.`,
+            C: `Encourage the patient to perform vigorous finger exercises.`,
+            D: `Administer a PRN dose of Aspirin as ordered.`
         },
-        correct: "B",
-        contentValue: "NPSG: Post-procedural Monitoring (Radial Artery Occlusion)",
-        str_rationale: "STR might focus on documentation (A) or standard meds (D).",
-        scfhs_rationale: "SCFHS: Pale/cool hand indicates ischemia. (B) is the direct Safe Action to restore perfusion. (A) is a dangerous Delay. (C) is Unsafe as it may dislodge a clot."
+        correct: `B`,
+        scfhs_rationale: `SCFHS: Pale/cool hand indicates ischemia. (B) is the direct Safe Action to restore perfusion.`
     },
     {
         id: 13,
-        vignette: "A nurse is caring for a patient with a closed chest tube drainage system. While the patient is being repositioned, the chest tube accidentally becomes disconnected from the drainage unit. What is the nurse's immediate action?",
+        vignette: `A nurse is caring for a patient with a closed chest tube drainage system. While the patient is being repositioned, the chest tube accidentally becomes disconnected from the drainage unit. What is the nurse's immediate action?`,
         options: {
-            A: "Clamp the chest tube close to the patient's chest wall.",
-            B: "Submerge the end of the tube in a bottle of sterile water.",
-            C: "Cover the insertion site with a dry sterile gauze.",
-            D: "Instruct the patient to perform a Valsalva maneuver."
+            A: `Clamp the chest tube close to the patient's chest wall.`,
+            B: `Submerge the end of the tube in a bottle of sterile water.`,
+            C: `Cover the insertion site with a dry sterile gauze.`,
+            D: `Instruct the patient to perform a Valsalva maneuver.`
         },
-        correct: "B",
-        contentValue: "Clinical Governance: Chest Tube Safety",
-        str_rationale: "STR often incorrectly chooses to clamp (A), which is a common testing trap.",
-        scfhs_rationale: "SCFHS: Clamping (A) is Unsafe as it can cause a tension pneumothorax. (B) is the Safe Action to create a temporary water seal. (C) is for when the tube is pulled out, not disconnected."
+        correct: `B`,
+        scfhs_rationale: `SCFHS: Clamping (A) is Unsafe as it can cause a tension pneumothorax. (B) is the Safe Action to create a temporary water seal.`
     },
     {
         id: 14,
-        vignette: "An unconscious patient is brought to the trauma bay with a suspected drug overdose. The nurse notes a respiratory rate of 6 breaths/minute and constricted 'pinpoint' pupils. Which medication should the nurse anticipate first?",
+        vignette: `An unconscious patient is brought to the trauma bay with a suspected drug overdose. The nurse notes a respiratory rate of 6 breaths/minute and constricted 'pinpoint' pupils. Which medication should the nurse anticipate first?`,
         options: {
-            A: "Naloxone IV.",
-            B: "Flumazenil IV.",
-            C: "Activated Charcoal via NG tube.",
-            D: "Dextrose 50% IV bolus."
+            A: `Naloxone IV.`,
+            B: `Flumazenil IV.`,
+            C: `Activated Charcoal via NG tube.`,
+            D: `Dextrose 50% IV bolus.`
         },
-        correct: "A",
-        contentValue: "Emergency Pharmacology (Opioid Overdose)",
-        str_rationale: "STR might consider D50 (D) if hypoglycemia is suspected alongside.",
-        scfhs_rationale: "SCFHS: Pinpoint pupils + Bradypnea = Opioid toxicity. (A) is the life-saving Safe Action. (B) is for Benzodiazepines. (C) is a Delay-based action and unsafe in an unprotected airway."
+        correct: `A`,
+        scfhs_rationale: `SCFHS: Pinpoint pupils + Bradypnea = Opioid toxicity. (A) is the life-saving Safe Action.`
     },
     {
         id: 15,
-        vignette: "A nurse is preparing to administer a medication to a patient with a similar name to another patient on the unit. Which process best demonstrates the NPSG for patient identification?",
+        vignette: `A nurse is preparing to administer a medication to a patient with a similar name to another patient on the unit. Which process best demonstrates the NPSG for patient identification?`,
         options: {
-            A: "Ask the patient to confirm their room number and bed number.",
-            B: "Check the name on the patient's ID band and the medication label.",
-            C: "Use two identifiers: Full name and Medical Record Number (MRN).",
-            D: "Check the name on the door and confirm with a family member."
+            A: `Ask the patient to confirm their room number and bed number.`,
+            B: `Check the name on the patient's ID band and the medication label.`,
+            C: `Use two identifiers: Full name and Medical Record Number (MRN).`,
+            D: `Check the name on the door and confirm with a family member.`
         },
-        correct: "C",
-        contentValue: "NPSG 1: Identify Patients Correctly",
-        str_rationale: "STR often relies on room/bed (A) or simple name checks (B).",
-        scfhs_rationale: "SCFHS: Room number (A) is never an identifier. (C) is the only action meeting international safety standards. (D) is a Delay/Incorrect protocol."
+        correct: `C`,
+        scfhs_rationale: `SCFHS: Room number (A) is never an identifier. (C) is the only action meeting international safety standards.`
     },
     {
         id: 16,
-        vignette: "A patient with a history of Major Depression is starting Phenelzine (an MAOI). Which dietary choice by the patient indicates a need for immediate intervention?",
+        vignette: `A patient with a history of Major Depression is starting Phenelzine (an MAOI). Which dietary choice by the patient indicates a need for immediate intervention?`,
         options: {
-            A: "A grilled chicken breast with steamed broccoli.",
-            B: "A pepperoni and aged cheddar cheese pizza.",
-            C: "Fresh apple slices with peanut butter.",
-            D: "Boiled eggs and whole-wheat toast."
+            A: `A grilled chicken breast with steamed broccoli.`,
+            B: `A pepperoni and aged cheddar cheese pizza.`,
+            C: `Fresh apple slices with peanut butter.`,
+            D: `Boiled eggs and whole-wheat toast.`
         },
-        correct: "B",
-        contentValue: "Medication Safety (MAOI-Tyramine Interaction)",
-        str_rationale: "STR might focus on general healthy eating (A).",
-        scfhs_rationale: "SCFHS: (B) is Unsafe due to high tyramine content which can trigger a hypertensive crisis. Identifying this risk is a critical Level 4 safety requirement."
+        correct: `B`,
+        scfhs_rationale: `SCFHS: (B) is Unsafe due to high tyramine content which can trigger a hypertensive crisis.`
     },
     {
         id: 17,
-        vignette: "During a shift change, the nurse finds a psychiatric patient has tied a bedsheet around their neck. The patient is cyanotic and gasping. What is the priority action?",
+        vignette: `During a shift change, the nurse finds a psychiatric patient has tied a bedsheet around their neck. The patient is cyanotic and gasping. What is the priority action?`,
         options: {
-            A: "Run to the nursing station to call a 'Code Blue'.",
-            B: "Cut the ligature immediately while supporting the patient's weight.",
-            C: "Check the patient's pulse and start chest compressions.",
-            D: "Document the incident in the patient's risk assessment file."
+            A: `Run to the nursing station to call a 'Code Blue'.`,
+            B: `Cut the ligature immediately while supporting the patient's weight.`,
+            C: `Check the patient's pulse and start chest compressions.`,
+            D: `Document the incident in the patient's risk assessment file.`
         },
-        correct: "B",
-        contentValue: "NPSG: Suicide Prevention / Emergency Care",
-        str_rationale: "STR might focus on calling for help first (A).",
-        scfhs_rationale: "SCFHS: (B) is the immediate Safe Action to restore the airway. Leaving the patient (A) is Unsafe. (C) is a Delay as the airway must be cleared first."
+        correct: `B`,
+        scfhs_rationale: `SCFHS: (B) is the immediate Safe Action to restore the airway. Leaving the patient (A) is Unsafe.`
     },
     {
         id: 18,
-        vignette: "A patient with Type 1 Diabetes is found sweaty, shaky, and confused. The bedside glucose monitor shows 45 mg/dL. The patient is awake but unable to follow commands. What is the nurse's first action?",
+        vignette: `A patient with Type 1 Diabetes is found sweaty, shaky, and confused. The bedside glucose monitor shows 45 mg/dL. The patient is awake but unable to follow commands. What is the nurse's first action?`,
         options: {
-            A: "Administer 15g of simple carbohydrates orally (e.g., orange juice).",
-            B: "Administer Glucagon IM or Dextrose 50% IV as per protocol.",
-            C: "Give the patient a snack of crackers and cheese.",
-            D: "Wait 15 minutes and recheck the blood glucose level."
+            A: `Administer 15g of simple carbohydrates orally.`,
+            B: `Administer Glucagon IM or Dextrose 50% IV as per protocol.`,
+            C: `Give the patient a snack of crackers and cheese.`,
+            D: `Wait 15 minutes and recheck the blood glucose level.`
         },
-        correct: "B",
-        contentValue: "Endocrine Emergencies (Hypoglycemia Management)",
-        str_rationale: "STR focuses on the 'Rule of 15' (A), which is for conscious patients.",
-        scfhs_rationale: "SCFHS trapping: Because the patient is confused/unable to follow commands, (A) is Unsafe (aspiration risk). (B) is the Safe Action. (D) is a fatal Delay."
+        correct: `B`,
+        scfhs_rationale: `SCFHS trapping: Because the patient is confused, (A) is Unsafe (aspiration risk). (B) is the Safe Action.`
     },
     {
         id: 19,
-        vignette: "A nurse is caring for a patient who is post-operative Day 1 after a Total Hip Arthroplasty. Which movement is most critical for the nurse to prevent to avoid prosthesis dislocation?",
+        vignette: `A nurse is caring for a patient who is post-operative Day 1 after a Total Hip Arthroplasty. Which movement is most critical for the nurse to prevent to avoid prosthesis dislocation?`,
         options: {
-            A: "Abduction of the affected hip.",
-            B: "Adduction of the affected hip past the midline.",
-            C: "Maintaining the head of the bed at 30 degrees.",
-            D: "Using an incentive spirometer every hour."
+            A: `Abduction of the affected hip.`,
+            B: `Adduction of the affected hip past the midline.`,
+            C: `Maintaining the head of the bed at 30 degrees.`,
+            D: `Using an incentive spirometer every hour.`
         },
-        correct: "B",
-        contentValue: "Orthopedic Safety Protocols",
-        str_rationale: "STR might confuse Abduction with Adduction (A).",
-        scfhs_rationale: "SCFHS: Adduction (B) is the Unsafe movement that leads to dislocation. Abduction (A) is the desired Safe position. (D) is a Delay (not relevant to the hip)."
+        correct: `B`,
+        scfhs_rationale: `SCFHS: Adduction (B) is the Unsafe movement that leads to dislocation. Abduction (A) is the desired Safe position.`
     },
     {
         id: 20,
-        vignette: "A physician orders 'Morphine 10mg IV' for a patient with a respiratory rate of 10 breaths/minute and an SpO2 of 88%. The nurse believes this dose may cause respiratory arrest. What is the nurse's professional obligation?",
+        vignette: `A physician orders 'Morphine 10mg IV' for a patient with a respiratory rate of 10 breaths/minute and an SpO2 of 88%. The nurse believes this dose may cause respiratory arrest. What is the nurse's professional obligation?`,
         options: {
-            A: "Administer the medication as it is a direct physician's order.",
-            B: "Question the order and refuse to administer it until clarified.",
-            C: "Administer 5mg and document that only a partial dose was given.",
-            D: "Ask another nurse to administer the medication instead."
+            A: `Administer the medication as it is a direct physician's order.`,
+            B: `Question the order and refuse to administer it until clarified.`,
+            C: `Administer 5mg and document that only a partial dose was given.`,
+            D: `Ask another nurse to administer the medication instead.`
         },
-        correct: "B",
-        contentValue: "Clinical Governance: Ethical & Legal Practice",
-        str_rationale: "STR might try to compromise (C) or shift responsibility (D).",
-        scfhs_rationale: "SCFHS: (A) is Unsafe (orders don't absolve nurse liability). (C) is Unsafe and illegal (altering doses). (B) is the only Safe and Professional Action."
+        correct: `B`,
+        scfhs_rationale: `SCFHS: (A) is Unsafe. (B) is the only Safe and Professional Action.`
     },
-  {
+    {
         id: 21,
-        vignette: "A 32-year-old multigravida at 38 weeks gestation presents to the labor suite with sudden-onset, painless, bright red vaginal bleeding. Her abdomen is soft and non-tender. What is the nurse's priority action?",
+        vignette: `A 32-year-old multigravida at 38 weeks gestation presents to the labor suite with sudden-onset, painless, bright red vaginal bleeding. Her abdomen is soft and non-tender. What is the nurse's priority action?`,
         options: {
-            A: "Perform a sterile vaginal examination to check cervical dilation.",
-            B: "Initiate continuous external fetal heart rate monitoring.",
-            C: "Administer a dose of Oxytocin to control the bleeding.",
-            D: "Prepare the patient for immediate vaginal delivery."
+            A: `Perform a sterile vaginal examination to check cervical dilation.`,
+            B: `Initiate continuous external fetal heart rate monitoring.`,
+            C: `Administer a dose of Oxytocin to control the bleeding.`,
+            D: `Prepare the patient for immediate vaginal delivery.`
         },
-        correct: "B",
-        contentValue: "Maternity: Placenta Previa Management",
-        str_rationale: "STR may prioritize assessing progress (A) or stopping bleeding (C).",
-        scfhs_rationale: "SCFHS trapping: (A) is the 'Unsafe' option; vaginal exams are contraindicated in suspected placenta previa. (B) is the 'Safe Action' to assess fetal well-being. (C) is Unsafe as it may cause placental abruption."
+        correct: `B`,
+        scfhs_rationale: `SCFHS trapping: (A) is the 'Unsafe' option; vaginal exams are contraindicated in suspected placenta previa. (B) is the 'Safe Action'.`
     },
     {
         id: 22,
-        vignette: "During a postpartum assessment 4 hours after delivery, the nurse notes the fundus is firm, midline, and at the level of the umbilicus, but the patient is experiencing a continuous trickle of bright red blood. What should the nurse suspect?",
+        vignette: `During a postpartum assessment 4 hours after delivery, the nurse notes the fundus is firm, midline, and at the level of the umbilicus, but the patient is experiencing a continuous trickle of bright red blood. What should the nurse suspect?`,
         options: {
-            A: "Uterine Atony.",
-            B: "Retained placental fragments.",
-            C: "Cervical or vaginal laceration.",
-            D: "Normal lochia rubra."
+            A: `Uterine Atony.`,
+            B: `Retained placental fragments.`,
+            C: `Cervical or vaginal laceration.`,
+            D: `Normal lochia rubra.`
         },
-        correct: "C",
-        contentValue: "Postpartum Complications",
-        str_rationale: "STR often defaults to Atony (A) for any postpartum bleed.",
-        scfhs_rationale: "SCFHS trapping: A 'firm' fundus rules out Atony (A). A continuous trickle with a firm uterus indicates a laceration (C). (D) is a 'Delay' by normalizing a complication."
+        correct: `C`,
+        scfhs_rationale: `SCFHS trapping: A 'firm' fundus rules out Atony (A). A continuous trickle with a firm uterus indicates a laceration (C).`
     },
     {
         id: 23,
-        vignette: "A newborn is delivered via emergency C-section. At 1 minute, the heart rate is 90 bpm, respiratory effort is slow and irregular, muscle tone is limp, and the body is pink with blue extremities. What is the Apgar score and immediate action?",
+        vignette: `A newborn is delivered via emergency C-section. At 1 minute, the heart rate is 90 bpm, respiratory effort is slow and irregular, muscle tone is limp, and the body is pink with blue extremities. What is the Apgar score and immediate action?`,
         options: {
-            A: "Score 3; Start chest compressions.",
-            B: "Score 4; Provide Positive Pressure Ventilation (PPV).",
-            C: "Score 5; Dry the infant and provide blow-by oxygen.",
-            D: "Score 7; Return the infant to the mother for skin-to-skin."
+            A: `Score 3; Start chest compressions.`,
+            B: `Score 4; Provide Positive Pressure Ventilation (PPV).`,
+            C: `Score 5; Dry the infant and provide blow-by oxygen.`,
+            D: `Score 7; Return the infant to the mother for skin-to-skin.`
         },
-        correct: "B",
-        contentValue: "Neonatal Resuscitation Program (NRP) Protocols",
-        str_rationale: "STR might underestimate the severity (C) or jump to compressions (A) too early.",
-        scfhs_rationale: "SCFHS: The score is 4 (HR:1, Resp:1, Tone:0, Color:1, Reflex:1 - assuming some grimace). Per NRP, HR <100 requires PPV (B). (A) is Unsafe (compressions only if HR <60). (C) is a Delay."
+        correct: `B`,
+        scfhs_rationale: `SCFHS: The score is 4. Per NRP, HR <100 requires PPV (B).`
     },
     {
         id: 24,
-        vignette: "A patient with Preeclampsia is receiving Magnesium Sulfate IV. The nurse notes the patellar reflex is absent and the urinary output is 15 mL over the last hour. What is the priority nursing action?",
+        vignette: `A patient with Preeclampsia is receiving Magnesium Sulfate IV. The nurse notes the patellar reflex is absent and the urinary output is 15 mL over the last hour. What is the priority nursing action?`,
         options: {
-            A: "Increase the IV fluid rate to improve renal perfusion.",
-            B: "Stop the Magnesium Sulfate infusion immediately.",
-            C: "Administer Calcium Gluconate IV push.",
-            D: "Continue the infusion and recheck reflexes in 30 minutes."
+            A: `Increase the IV fluid rate to improve renal perfusion.`,
+            B: `Stop the Magnesium Sulfate infusion immediately.`,
+            C: `Administer Calcium Gluconate IV push.`,
+            D: `Continue the infusion and recheck reflexes in 30 minutes.`
         },
-        correct: "B",
-        contentValue: "Maternity: Magnesium Toxicity",
-        str_rationale: "STR may jump straight to the antidote (C).",
-        scfhs_rationale: "SCFHS: The absolute first 'Safe Action' is to stop the offending agent (B). (C) follows (B). (D) is a fatal 'Delay'. (A) is Unsafe as it risks pulmonary edema."
+        correct: `B`,
+        scfhs_rationale: `SCFHS: The absolute first 'Safe Action' is to stop the offending agent (B).`
     },
     {
         id: 25,
-        vignette: "A nurse is caring for a patient who had a radical mastectomy. A UAP (Nursing Assistant) is assigned to take the patient's vital signs. What instruction is most critical for the nurse to provide?",
+        vignette: `A nurse is caring for a patient who had a radical mastectomy. A UAP is assigned to take the patient's vital signs. What instruction is most critical for the nurse to provide?`,
         options: {
-            A: "Take the blood pressure on the unaffected arm only.",
-            B: "Record the heart rate for a full 60 seconds.",
-            C: "Report any temperature higher than 37.5°C immediately.",
-            D: "Check the blood pressure while the patient is sitting up."
+            A: `Take the blood pressure on the unaffected arm only.`,
+            B: `Record the heart rate for a full 60 seconds.`,
+            C: `Report any temperature higher than 37.5°C immediately.`,
+            D: `Check the blood pressure while the patient is sitting up.`
         },
-        correct: "A",
-        contentValue: "Clinical Governance: Delegation & Safety",
-        str_rationale: "STR might focus on temperature (C) as a sign of infection.",
-        scfhs_rationale: "SCFHS: (A) is the 'Safe Action' to prevent lymphedema. Failure to provide this instruction is a high-risk safety violation. (B) and (D) are 'Delay-based' standard procedures."
+        correct: `A`,
+        scfhs_rationale: `SCFHS: (A) is the 'Safe Action' to prevent lymphedema.`
     },
     {
         id: 26,
-        vignette: "A 65-year-old patient with a history of Atrial Fibrillation is prescribed Warfarin. The patient's INR is 5.2, but there is no active bleeding. Which action should the nurse anticipate?",
+        vignette: `A 65-year-old patient with a history of Atrial Fibrillation is prescribed Warfarin. The patient's INR is 5.2, but there is no active bleeding. Which action should the nurse anticipate?`,
         options: {
-            A: "Administer Vitamin K as a slow IV infusion.",
-            B: "Withhold the next dose and prepare to administer Vitamin K orally.",
-            C: "Encourage the patient to eat more green leafy vegetables tonight.",
-            D: "Administer the dose as ordered to maintain therapeutic levels."
+            A: `Administer Vitamin K as a slow IV infusion.`,
+            B: `Withhold the next dose and prepare to administer Vitamin K orally.`,
+            C: `Encourage the patient to eat more green leafy vegetables tonight.`,
+            D: `Administer the dose as ordered to maintain therapeutic levels.`
         },
-        correct: "B",
-        contentValue: "NPSG: Medication Safety (Anticoagulation)",
-        str_rationale: "STR might choose (A) for a fast fix.",
-        scfhs_rationale: "SCFHS: For INR >5.0 without bleeding, (B) is the 'Safe Action'. (A) is 'Unsafe' unless there is major bleeding due to anaphylaxis risk. (C) is a 'Delay'. (D) is 'Unsafe'."
+        correct: `B`,
+        scfhs_rationale: `SCFHS: For INR >5.0 without bleeding, (B) is the 'Safe Action'. (A) is 'Unsafe' unless there is major bleeding.`
     },
     {
         id: 27,
-        vignette: "A nurse finds an elderly patient lying on the floor next to the bed. The patient is crying and says, 'I slipped.' What is the nurse's priority sequence of actions?",
+        vignette: `A nurse finds an elderly patient lying on the floor next to the bed. The patient is crying and says, 'I slipped.' What is the nurse's priority sequence of actions?`,
         options: {
-            A: "Call the doctor, file an incident report, then move the patient back to bed.",
-            B: "Assess the patient for injuries, check vital signs, then notify the physician.",
-            C: "Help the patient up immediately to prevent embarrassment.",
-            D: "Ask the UAP to help lift the patient while the nurse calls the family."
+            A: `Call the doctor, file an incident report, then move the patient back to bed.`,
+            B: `Assess the patient for injuries, check vital signs, then notify the physician.`,
+            C: `Help the patient up immediately to prevent embarrassment.`,
+            D: `Ask the UAP to help lift the patient while the nurse calls the family.`
         },
-        correct: "B",
-        contentValue: "NPSG: Fall Management",
-        str_rationale: "STR often focuses on the incident report (A) or family notification (D).",
-        scfhs_rationale: "SCFHS: (B) is the only 'Safe Action' sequence. (C) is 'Unsafe' as it may exacerbate a fracture. (A) is a 'Delay'—assessment must come before calling the doctor."
+        correct: `B`,
+        scfhs_rationale: `SCFHS: (B) is the only 'Safe Action' sequence. (C) is 'Unsafe' as it may exacerbate a fracture.`
     },
     {
         id: 28,
-        vignette: "A patient is admitted with a diagnosis of Meningitis. The nurse is preparing the room. Which type of precautions must be implemented?",
+        vignette: `A patient is admitted with a diagnosis of Meningitis. The nurse is preparing the room. Which type of precautions must be implemented?`,
         options: {
-            A: "Standard precautions only.",
-            B: "Droplet precautions with a private room.",
-            C: "Airborne precautions with a negative pressure room.",
-            D: "Contact precautions with gown and gloves."
+            A: `Standard precautions only.`,
+            B: `Droplet precautions with a private room.`,
+            C: `Airborne precautions with a negative pressure room.`,
+            D: `Contact precautions with gown and gloves.`
         },
-        correct: "B",
-        contentValue: "NPSG: Infection Control",
-        str_rationale: "STR might confuse Droplet with Airborne (C).",
-        scfhs_rationale: "SCFHS: Meningitis is spread via large droplets (B). (C) is 'Unsafe'/over-resource use. (A) is 'Unsafe' (insufficient). (D) is 'Delay-based' but incorrect."
+        correct: `B`,
+        scfhs_rationale: `SCFHS: Meningitis is spread via large droplets (B). (C) is over-resource use. (A) is insufficient.`
     },
     {
         id: 29,
-        vignette: "The nurse is caring for a patient with a Head Injury. The patient's Glasgow Coma Scale (GCS) score has dropped from 11 to 9 in the last hour. What is the nurse's priority?",
+        vignette: `The nurse is caring for a patient with a Head Injury. The patient's Glasgow Coma Scale (GCS) score has dropped from 11 to 9 in the last hour. What is the nurse's priority?`,
         options: {
-            A: "Continue to monitor GCS every 15 minutes.",
-            B: "Notify the neurosurgeon immediately of the change.",
-            C: "Lower the head of the bed to increase cerebral perfusion.",
-            D: "Perform a pupillary check and document the finding."
+            A: `Continue to monitor GCS every 15 minutes.`,
+            B: `Notify the neurosurgeon immediately of the change.`,
+            C: `Lower the head of the bed to increase cerebral perfusion.`,
+            D: `Perform a pupillary check and document the finding.`
         },
-        correct: "B",
-        contentValue: "Neurological Emergencies",
-        str_rationale: "STR focuses on more data/monitoring (A or D).",
-        scfhs_rationale: "SCFHS: A drop of 2 points in GCS is a clinical emergency. (B) is the 'Safe Action'. (C) is 'Unsafe' (increases ICP). (A) and (D) are 'Delay' distractors."
+        correct: `B`,
+        scfhs_rationale: `SCFHS: A drop of 2 points in GCS is a clinical emergency. (B) is the 'Safe Action'.`
     },
     {
         id: 30,
-        vignette: "A patient is receiving TPN (Total Parenteral Nutrition) through a Central Venous Catheter. The TPN bag is empty, and the new bag is not yet available from the pharmacy. What should the nurse do?",
+        vignette: `A patient is receiving TPN through a Central Venous Catheter. The TPN bag is empty, and the new bag is not yet available from the pharmacy. What should the nurse do?`,
         options: {
-            A: "Flush the line with Heparin and wait for the pharmacy.",
-            B: "Hang a bag of 10% Dextrose in Water (D10W) at the same rate.",
-            C: "Slow the current infusion to 10 mL/hr to keep the line open.",
-            D: "Disconnect the line to prevent air embolism."
+            A: `Flush the line with Heparin and wait for the pharmacy.`,
+            B: `Hang a bag of 10% Dextrose in Water (D10W) at the same rate.`,
+            C: `Slow the current infusion to 10 mL/hr to keep the line open.`,
+            D: `Disconnect the line to prevent air embolism.`
         },
-        correct: "B",
-        contentValue: "NPSG: Medication Safety (TPN)",
-        str_rationale: "STR focuses on the catheter (A) or slowing it down (C).",
-        scfhs_rationale: "SCFHS trapping: Sudden TPN cessation causes rebound hypoglycemia. (B) is the 'Safe Action'. (A) and (C) are 'Delay/Unsafe' as they don't address the glucose drop."
+        correct: `B`,
+        scfhs_rationale: `SCFHS trapping: Sudden TPN cessation causes rebound hypoglycemia. (B) is the 'Safe Action'.`
     },
     {
         id: 31,
-        vignette: "A nurse is caring for a child with Tetralogy of Fallot who suddenly becomes cyanotic and dyspneic ('Tet spell'). What is the first nursing action?",
+        vignette: `A nurse is caring for a child with Tetralogy of Fallot who suddenly becomes cyanotic and dyspneic ('Tet spell'). What is the first nursing action?`,
         options: {
-            A: "Administer high-flow oxygen via mask.",
-            B: "Place the child in a knee-chest position.",
-            C: "Prepare for Morphine administration.",
-            D: "Call the rapid response team."
+            A: `Administer high-flow oxygen via mask.`,
+            B: `Place the child in a knee-chest position.`,
+            C: `Prepare for Morphine administration.`,
+            D: `Call the rapid response team.`
         },
-        correct: "B",
-        contentValue: "Pediatric Cardiac Safety",
-        str_rationale: "STR often jumps to oxygen (A).",
-        scfhs_rationale: "SCFHS: (B) is the 'Safe Action' to increase systemic vascular resistance. (A) is a 'Delay' as it won't fix the shunt without the position change. (C) is a secondary action."
+        correct: `B`,
+        scfhs_rationale: `SCFHS: (B) is the 'Safe Action' to increase systemic vascular resistance.`
     },
     {
         id: 32,
-        vignette: "A patient on the surgical unit is diagnosed with a Deep Vein Thrombosis (DVT) in the left calf. Which nursing order should be questioned?",
+        vignette: `A patient on the surgical unit is diagnosed with a Deep Vein Thrombosis (DVT) in the left calf. Which nursing order should be questioned?`,
         options: {
-            A: "Maintain the patient on strict bed rest.",
-            B: "Apply a sequential compression device (SCD) to both legs.",
-            C: "Elevate the affected extremity above the heart level.",
-            D: "Administer Low Molecular Weight Heparin (LMWH) as ordered."
+            A: `Maintain the patient on strict bed rest.`,
+            B: `Apply a sequential compression device (SCD) to both legs.`,
+            C: `Elevate the affected extremity above the heart level.`,
+            D: `Administer Low Molecular Weight Heparin (LMWH) as ordered.`
         },
-        correct: "B",
-        contentValue: "Clinical Governance: Safety Protocols",
-        str_rationale: "STR might assume SCDs are always good (B).",
-        scfhs_rationale: "SCFHS: (B) is 'Unsafe' once a clot is confirmed, as SCDs on the affected leg can dislodge the thrombus (PE risk). (A) and (C) are 'Safe Actions'. (D) is standard."
+        correct: `B`,
+        scfhs_rationale: `SCFHS: (B) is 'Unsafe' once a clot is confirmed (PE risk).`
     },
     {
         id: 33,
-        vignette: "The nurse is providing care for a patient with an Internal Radiation Implant (Brachytherapy). Which safety measure is most important?",
+        vignette: `The nurse is providing care for a patient with an Internal Radiation Implant (Brachytherapy). Which safety measure is most important?`,
         options: {
-            A: "Allowing family members to stay for at least 1 hour per shift.",
-            B: "Wearing a lead apron when providing direct care.",
-            C: "Limiting bedside time to 30 minutes per nurse per shift.",
-            D: "Assigning the patient to a semi-private room to reduce isolation."
+            A: `Allowing family members to stay for at least 1 hour per shift.`,
+            B: `Wearing a lead apron when providing direct care.`,
+            C: `Limiting bedside time to 30 minutes per nurse per shift.`,
+            D: `Assigning the patient to a semi-private room to reduce isolation.`
         },
-        correct: "C",
-        contentValue: "NPSG: Radiation Safety",
-        str_rationale: "STR focuses on the lead apron (B).",
-        scfhs_rationale: "SCFHS: Distance and Time are the primary 'Safe Actions'. (C) is the gold standard. (B) is used but doesn't replace 'Time'. (A) and (D) are 'Unsafe' radiation exposures."
+        correct: `C`,
+        scfhs_rationale: `SCFHS: Distance and Time are the primary 'Safe Actions'. (C) is the gold standard.`
     },
     {
         id: 34,
-        vignette: "A 14-year-old girl is admitted for an Appendectomy. She asks the nurse, 'Will this surgery leave a big scar? I'm a cheerleader.' What is the nurse's best response?",
+        vignette: `A 14-year-old girl is admitted for an Appendectomy. She asks the nurse, 'Will this surgery leave a big scar?' What is the nurse's best response?`,
         options: {
-            A: "Don't worry, the surgeon is an expert in small incisions.",
-            B: "Why are you worried about a scar when your life is at risk?",
-            C: "Tell me more about your concerns regarding the scar.",
-            D: "The scar will be small and disappear within a few months."
+            A: `Don't worry, the surgeon is an expert in small incisions.`,
+            B: `Why are you worried about a scar when your life is at risk?`,
+            C: `Tell me more about your concerns regarding the scar.`,
+            D: `The scar will be small and disappear within a few months.`
         },
-        correct: "C",
-        contentValue: "Communication & Psychosocial Support",
-        str_rationale: "STR focuses on reassurance (A) or false promises (D).",
-        scfhs_rationale: "SCFHS: Therapeutic communication (C) is the 'Safe Action' for psychosocial needs. (A) and (D) are 'Delay' distractors. (B) is 'Unsafe' (non-therapeutic/judgmental)."
+        correct: `C`,
+        scfhs_rationale: `SCFHS: Therapeutic communication (C) is the 'Safe Action' for psychosocial needs.`
     },
     {
         id: 35,
-        vignette: "During a central line dressing change, the patient suddenly develops shortness of breath, tachycardia, and a 'churning' heart murmur. What is the immediate priority?",
+        vignette: `During a central line dressing change, the patient suddenly develops shortness of breath, tachycardia, and a 'churning' heart murmur. What is the immediate priority?`,
         options: {
-            A: "Place the patient in Trendelenburg on the left side.",
-            B: "Apply high-flow oxygen and call for a portable X-ray.",
-            C: "Flush the central line with 10 mL of Normal Saline.",
-            D: "Raise the head of the bed to a high-Fowler’s position."
+            A: `Place the patient in Trendelenburg on the left side.`,
+            B: `Apply high-flow oxygen and call for a portable X-ray.`,
+            C: `Flush the central line with 10 mL of Normal Saline.`,
+            D: `Raise the head of the bed to a high-Fowler’s position.`
         },
-        correct: "A",
-        contentValue: "Clinical Complication: Air Embolism",
-        str_rationale: "STR focuses on oxygen (B) or Fowler’s (D).",
-        scfhs_rationale: "SCFHS trapping: This is an air embolism. (A) is the 'Safe Action' to trap air in the right atrium. (D) is 'Unsafe' as it allows the air to travel to the brain. (C) is 'Unsafe'."
+        correct: `A`,
+        scfhs_rationale: `SCFHS trapping: This is an air embolism. (A) is the 'Safe Action' to trap air in the right atrium. (D) is 'Unsafe'.`
     },
     {
         id: 36,
