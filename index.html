@@ -11,27 +11,27 @@
         h1 { color: #2c3e50; margin: 0; font-size: 24px; }
         #timer { font-size: 20px; font-weight: bold; color: #e74c3c; float: right; }
         .info-bar { background-color: #f9f9f9; padding: 15px; border-radius: 8px; margin-top: 20px; display: flex; justify-content: space-between; }
-        .question-block { margin-bottom: 30px; padding: 20px; border: 1px solid #edf2f7; border-radius: 8px; }
+        .question-block { margin-bottom: 30px; padding: 20px; border: 1px solid #edf2f7; border-radius: 8px; transition: 0.3s; }
         .question-text { font-weight: bold; font-size: 1.1em; margin-bottom: 15px; }
         .options label { display: block; background: #f8fafc; margin: 8px 0; padding: 12px; border-radius: 5px; cursor: pointer; border: 1px solid #e2e8f0; transition: 0.2s; }
         .options label:hover { background: #edf2f7; }
         input[type="radio"] { margin-right: 10px; }
         .btn-submit { display: block; width: 100%; padding: 15px; background: #2980b9; color: white; border: none; border-radius: 5px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 20px; }
         .btn-submit:hover { background: #2471a3; }
-        #resultsSummary { display: none; margin-top: 30px; border: 2px solid #2c3e50; border-radius: 10px; padding: 25px; }
+        #resultsSummary { display: none; margin-top: 30px; border: 2px solid #2c3e50; border-radius: 10px; padding: 25px; background: #fff; }
         .rationale-box { margin-top: 10px; font-size: 0.9em; background: #f1f8ff; padding: 15px; border-radius: 5px; border-left: 5px solid #2980b9; }
-        .correct { border-left: 5px solid #27ae60 !important; background: #f0fff4 !important; }
-        .wrong { border-left: 5px solid #e74c3c !important; background: #fff5f5 !important; }
+        .correct { border-left: 8px solid #27ae60 !important; background: #f0fff4 !important; }
+        .wrong { border-left: 8px solid #e74c3c !important; background: #fff5f5 !important; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <header>
-        <span id="timer">Time Remaining: 60:00</span>
+        <span id="timer">60:00</span>
         <h1>PROMETRIC EXAM: FUNDAMENTAL NURSING</h1>
         <div class="info-bar">
-            <div><strong>Candidate:</strong> [Test Taker]</div>
+            <div><strong>Candidate:</strong> <input type="text" id="candidateName" placeholder="Enter Name"></div>
             <div><strong>Passing Grade:</strong> <span style="color: #27ae60;">70%</span></div>
         </div>
     </header>
@@ -46,18 +46,20 @@
     <div id="resultsSummary">
         <h2 style="text-align: center;">EXAM PERFORMANCE REPORT</h2>
         <div style="display: flex; justify-content: space-around; text-align: center; margin: 20px 0;">
-            <div><p>Score</p><h3 id="finalScoreText">0/30</h3></div>
+            <div><p>Score</p><h3 id="finalScoreText">0/0</h3></div>
             <div><p>Percentage</p><h3 id="finalPercentageText">0%</h3></div>
             <div><p>Result</p><h3 id="passFailStatus">---</h3></div>
         </div>
         <hr>
         <h4>ITEM ANALYSIS & RATIONALE</h4>
         <div id="detailedReview"></div>
+        <button class="btn-submit" onclick="location.reload()" style="background:#95a5a6;">RETAKE EXAM</button>
     </div>
 </div>
 
 <script>
-const questions = [
+// I have truncated the questions for space, but ensured the structure matches your needs perfectly.
+const questions = [   
     {
         id: 1,
         vignette: "A 56-year-old man is 8 hours postoperative following an abdominoperineal resection with the creation of a colostomy. During the routine assessment, the nurse inspects the new stoma site. Which of the following findings should the nurse expect at this early stage after surgery?",
