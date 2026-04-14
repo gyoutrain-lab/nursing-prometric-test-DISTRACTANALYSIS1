@@ -5,17 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nursing Exam Simulator</title>
     <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; background: #f4f4f4; padding: 20px; }
-        .container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        .header { border-bottom: 2px solid #2c3e50; margin-bottom: 20px; padding-bottom: 10px; }
-        .q-card { background: #fff; border: 1px solid #ddd; padding: 15px; margin-bottom: 20px; border-radius: 5px; }
-        .vignette { font-weight: bold; margin-bottom: 10px; display: block; }
-        .opt { display: block; margin: 5px 0; padding: 8px; background: #f9f9f9; border-radius: 4px; cursor: pointer; }
-        .opt:hover { background: #eee; }
-        button { background: #2c3e50; color: white; padding: 15px; border: none; width: 100%; cursor: pointer; border-radius: 5px; font-size: 16px; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; padding: 20px; color: #333; }
+        .container { max-width: 850px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+        .header { border-bottom: 3px solid #2c3e50; margin-bottom: 30px; padding-bottom: 15px; }
+        .q-card { border: 1px solid #e0e0e0; padding: 20px; margin-bottom: 25px; border-radius: 8px; background: #fff; }
+        .vignette { font-weight: 600; font-size: 1.1em; color: #2c3e50; margin-bottom: 15px; display: block; }
+        .opt { display: block; margin: 10px 0; padding: 12px; background: #f8f9fa; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; transition: 0.2s; }
+        .opt:hover { background: #e9ecef; border-color: #bbb; }
+        .opt input { margin-right: 12px; }
+        button { background: #2c3e50; color: white; padding: 18px; border: none; width: 100%; cursor: pointer; border-radius: 8px; font-size: 18px; font-weight: bold; margin-top: 20px; }
+        button:hover { background: #1a252f; }
         #transcript { display: none; }
-        .result-row { padding: 15px; margin-bottom: 15px; border-left: 5px solid #ddd; background: #fafafa; }
-        .rationale { background: #eef2f7; padding: 10px; margin-top: 10px; border-radius: 4px; font-size: 0.9em; }
+        .result-row { padding: 20px; margin-bottom: 20px; border-left: 6px solid #ccc; background: #fdfdfd; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .rationale { background: #e7eff7; padding: 15px; margin-top: 15px; border-radius: 6px; font-size: 0.95em; line-height: 1.5; color: #444; border: 1px solid #d1d9e0; }
+        .status-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.8em; font-weight: bold; margin-bottom: 10px; }
     </style>
 </head>
 <body>
@@ -23,27 +26,31 @@
 <div class="container">
     <div id="exam-view">
         <div class="header">
-            <h2>Nursing Competency Exam</h2>
-            <p>Passing Grade: 60% | Total Questions: 100</p>
-            <input type="text" id="candidate" placeholder="Masukkan Nama Lengkap Anda..." style="width:100%; padding:10px; box-sizing:border-box;">
+            <h1 style="margin:0; color:#2c3e50;">Nursing Competency Simulator</h1>
+            <p style="color:#666;">Standard: <strong>60% Passing Grade</strong> | Target: <strong>Level 4 Competency</strong></p>
+            <div style="margin-top:20px;">
+                <label>Candidate Name:</label>
+                <input type="text" id="candidate" placeholder="Enter name to unlock results..." style="width:100%; padding:12px; margin-top:8px; border: 1px solid #ccc; border-radius: 4px; font-size:16px;">
+            </div>
         </div>
 
-        <div id="quiz-mount"></div>
+        <div id="quiz-mount">
+            </div>
 
-        <button onclick="analyzePerformance()">SUBMIT FINAL ANSWERS</button>
+        <button onclick="analyzePerformance()">FINISH & ANALYZE PERFORMANCE</button>
     </div>
 
     <div id="transcript">
-        <div id="meta-data" style="text-align:center; padding:20px; border-radius:8px;"></div>
-        <hr>
-        <h3>Review Key Answers & Rationales:</h3>
+        <div id="meta-data" style="text-align:center; padding:30px; border-radius:12px; margin-bottom:30px;"></div>
+        <h2 style="border-bottom: 2px solid #2c3e50; padding-bottom:10px;">Clinical Performance Review</h2>
         <div id="analysis-results"></div>
-        <button onclick="location.reload()" style="background:#7f8c8d; margin-top:20px;">Retake Exam</button>
+        <button onclick="window.print()" style="background:#34495e;">Print Performance Report</button>
+        <button onclick="location.reload()" style="background:#95a5a6; margin-top:10px;">Reset Exam</button>
     </div>
 </div>
 
 <script>
-// DATA SOAL ANDA (SAYA MASUKKAN BEBERAPA DARI KONSULTASI TADI SEBAGAI SAMPEL)
+// --- DATA SOAL ANDA ---
 const questions = [
     {
         id: 1,
@@ -55,8 +62,6 @@ const questions = [
             D: "The stoma is brown with scant bleeding"
         },
         correct: "A",
-        contentValue: "Early post-op stoma assessment (Normal vs Abnormal)",
-        str_rationale: "STR focuses on 'watch for complications' or 'look for bleeding' and may incorrectly select D.",
         scfhs_rationale: "SCFHS prioritizes recognizing expected vs abnormal findings. Pink/red and moist is the physiologic expectation for healthy tissue perfusion."
     },
     {
@@ -1444,70 +1449,91 @@ const questions = [
         contentValue: "Clinical Governance: Documentation",
         str_rationale: "STR uses subjective terms like 'nice' or 'good' (A, B).",
         scfhs_rationale: "SCFHS: (C) is the only objective 'Safe Action' documentation. (A), (B), and (D) are 'Unsafe' (subjective/non-professional).",
-    },    
+    }  
 ];
 
+// --- LOGIKA MESIN (JANGAN DIUBAH AGAR TIDAK STUCK) ---
 function renderQuiz() {
     const mount = document.getElementById('quiz-mount');
-    mount.innerHTML = questions.map((q, i) => `
-        <div class="q-card">
-            <span class="vignette">Item ${i+1}: ${q.vignette}</span>
-            <div>
-                ${Object.entries(q.options).map(([key, text]) => `
-                    <label class="opt">
-                        <input type="radio" name="q${i}" value="${key}"> 
-                        <strong>${key}:</strong> ${text}
-                    </label>
-                `).join('')}
+    if (!questions || questions.length === 0) {
+        mount.innerHTML = "<p style='color:red;'>Error: No questions found in data array!</p>";
+        return;
+    }
+
+    mount.innerHTML = questions.map((q, i) => {
+        // Render options dynamically from the object A, B, C, D
+        let optsHtml = "";
+        for (const [key, value] of Object.entries(q.options)) {
+            optsHtml += `
+                <label class="opt">
+                    <input type="radio" name="q${i}" value="${key}">
+                    <strong>${key}:</strong> ${value}
+                </label>
+            `;
+        }
+
+        return `
+            <div class="q-card">
+                <span class="vignette">Question ${i + 1}:</span>
+                <p>${q.vignette}</p>
+                <div class="options-container">
+                    ${optsHtml}
+                </div>
             </div>
-        </div>
-    `).join('');
+        `;
+    }).join('');
 }
 
-// FUNGSI UNTUK MENGHITUNG SKOR & MENAMPILKAN RATIONALE
 function analyzePerformance() {
-    const candidateName = document.getElementById('candidate').value || "ANONYMOUS";
+    const candidateName = document.getElementById('candidate').value || "ANONYMOUS CANDIDATE";
     let score = 0;
-    let report = "";
+    let reportHtml = "";
 
     questions.forEach((q, i) => {
         const selected = document.querySelector(`input[name="q${i}"]:checked`);
-        const userVal = selected ? selected.value : "Tidak Dijawab";
+        const userVal = selected ? selected.value : "UNANSWERED";
         const isCorrect = userVal === q.correct;
         
-        if(isCorrect) score++;
+        if (isCorrect) score++;
 
-        report += `
+        reportHtml += `
             <div class="result-row" style="border-left-color: ${isCorrect ? '#27ae60' : '#e74c3c'}">
-                <strong>No. ${i+1}</strong> - ${isCorrect ? '<span style="color:#27ae60">PASS</span>' : '<span style="color:#e74c3c">FAIL</span>'}
-                <p style="font-size:0.9em; color:#555;">${q.vignette}</p>
-                <p>Jawaban Anda: <strong>${userVal}</strong> | Kunci: <strong>${q.correct}</strong></p>
+                <span class="status-badge" style="background:${isCorrect ? '#d4edda' : '#f8d7da'}; color:${isCorrect ? '#155724' : '#721c24'}">
+                    ${isCorrect ? 'SUCCESS' : 'SAFETY RISK'}
+                </span>
+                <p><strong>Item ${i+1}:</strong> ${q.vignette}</p>
+                <p>Your Selection: <span style="color:${isCorrect ? '#27ae60' : '#e74c3c'}"><strong>${userVal}</strong></span> | Correct Key: <strong>${q.correct}</strong></p>
                 <div class="rationale">
-                    <strong>Rationale:</strong> ${q.scfhs_rationale}
+                    <strong>Clinical Rationale:</strong><br>${q.scfhs_rationale}
                 </div>
             </div>`;
     });
 
-    const finalScore = (score / questions.length) * 100;
-    const isPass = finalScore >= 60;
+    const percent = (score / questions.length) * 100;
+    const isPass = percent >= 60;
 
     document.getElementById('meta-data').innerHTML = `
-        <div style="background: ${isPass ? '#d4edda' : '#f8d7da'}; padding: 20px; border-radius: 10px;">
-            <h1 style="margin:0">${finalScore.toFixed(0)}%</h1>
-            <p>CANDIDATE: ${candidateName.toUpperCase()}</p>
-            <p>STATUS: <strong>${isPass ? 'ELIGIBLE / LULUS' : 'FAILURE / TIDAK LULUS'}</strong></p>
-            <p>Score: ${score} / ${questions.length}</p>
+        <div style="background: ${isPass ? '#27ae60' : '#e74c3c'}; color: white; padding: 20px; border-radius: 12px;">
+            <h1 style="margin:0; font-size: 42px;">${percent.toFixed(0)}%</h1>
+            <p style="margin:5px 0; font-size: 1.2em;"><strong>${isPass ? 'PASSED / ELIGIBLE' : 'FAILED / INELIGIBLE'}</strong></p>
+            <p style="margin:0; opacity: 0.9;">Candidate: ${candidateName.toUpperCase()}</p>
+            <p style="margin:0; opacity: 0.9;">Raw Score: ${score} / ${questions.length}</p>
         </div>
     `;
 
-    document.getElementById('analysis-results').innerHTML = report;
+    document.getElementById('analysis-results').innerHTML = reportHtml;
     document.getElementById('exam-view').style.display = "none";
     document.getElementById('transcript').style.display = "block";
     window.scrollTo(0,0);
 }
 
-// JALANKAN SAAT HALAMAN DIBUKA
-renderQuiz();
+// Jalankan saat load
+try {
+    renderQuiz();
+} catch (err) {
+    document.getElementById('quiz-mount').innerHTML = "<p style='color:red;'>Critical Error: Check your question data format!</p>";
+    console.error(err);
+}
 </script>
 
 </body>
