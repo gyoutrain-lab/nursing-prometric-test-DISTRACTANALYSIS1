@@ -3,70 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professional Nursing Exam Simulator</title>
+    <title>Nursing Exam Simulator</title>
     <style>
-        :root {
-            --primary: #2c3e50;
-            --success: #27ae60;
-            --danger: #e74c3c;
-            --light: #ecf0f1;
-        }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; background: #f4f7f6; margin: 0; padding: 20px; }
-        .container { max-width: 900px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        
-        /* Header Section */
-        .header-box { border-bottom: 3px solid var(--primary); margin-bottom: 30px; padding-bottom: 20px; }
-        .input-group { margin: 15px 0; }
-        input[type="text"] { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 6px; font-size: 16px; box-sizing: border-box; }
-        
-        /* Question Styling */
-        .q-card { background: #fff; border: 1px solid #eee; padding: 20px; margin-bottom: 25px; border-radius: 8px; transition: 0.3s; }
-        .vignette { font-weight: 600; color: var(--primary); margin-bottom: 15px; display: block; }
-        .opt { display: block; padding: 10px; margin: 5px 0; background: #f9f9f9; border-radius: 5px; cursor: pointer; transition: 0.2s; }
-        .opt:hover { background: #edf2f7; }
-        
-        /* Results Styling */
+        body { font-family: Arial, sans-serif; line-height: 1.6; background: #f4f4f4; padding: 20px; }
+        .container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        .header { border-bottom: 2px solid #2c3e50; margin-bottom: 20px; padding-bottom: 10px; }
+        .q-card { background: #fff; border: 1px solid #ddd; padding: 15px; margin-bottom: 20px; border-radius: 5px; }
+        .vignette { font-weight: bold; margin-bottom: 10px; display: block; }
+        .opt { display: block; margin: 5px 0; padding: 8px; background: #f9f9f9; border-radius: 4px; cursor: pointer; }
+        .opt:hover { background: #eee; }
+        button { background: #2c3e50; color: white; padding: 15px; border: none; width: 100%; cursor: pointer; border-radius: 5px; font-size: 16px; }
         #transcript { display: none; }
-        .result-row { border-left: 5px solid #ddd; padding: 15px; margin-bottom: 20px; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .rationale-box { margin-top: 10px; padding: 12px; background: #f1f8ff; border-radius: 5px; font-size: 0.95em; border: 1px solid #d1e7ff; }
-        .pass-marker { color: var(--success); font-weight: bold; }
-        .fail-marker { color: var(--danger); font-weight: bold; }
-        
-        button { background: var(--primary); color: white; padding: 15px 30px; border: none; border-radius: 6px; cursor: pointer; font-size: 18px; width: 100%; margin-top: 20px; }
-        button:hover { background: #1a252f; }
-        .sticky-score { position: sticky; top: 0; background: var(--primary); color: white; padding: 10px; text-align: center; border-radius: 0 0 8px 8px; z-index: 100; margin-bottom: 20px; }
+        .result-row { padding: 15px; margin-bottom: 15px; border-left: 5px solid #ddd; background: #fafafa; }
+        .rationale { background: #eef2f7; padding: 10px; margin-top: 10px; border-radius: 4px; font-size: 0.9em; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div id="exam-view">
-        <div class="header-box">
-            <h1>Nursing Competency Exam</h1>
-            <p><strong>Passing Grade: 60%</strong> | 100 Questions (Level 4 Vignettes)</p>
-            <div class="input-group">
-                <input type="text" id="candidate" placeholder="ENTER FULL NAME HERE..." required>
-            </div>
+        <div class="header">
+            <h2>Nursing Competency Exam</h2>
+            <p>Passing Grade: 60% | Total Questions: 100</p>
+            <input type="text" id="candidate" placeholder="Masukkan Nama Lengkap Anda..." style="width:100%; padding:10px; box-sizing:border-box;">
         </div>
 
-        <div id="quiz-mount">
-            </div>
+        <div id="quiz-mount"></div>
 
         <button onclick="analyzePerformance()">SUBMIT FINAL ANSWERS</button>
     </div>
 
     <div id="transcript">
-        <div id="meta-data"></div>
+        <div id="meta-data" style="text-align:center; padding:20px; border-radius:8px;"></div>
         <hr>
-        <h3>Detailed Analysis & Rationales:</h3>
+        <h3>Review Key Answers & Rationales:</h3>
         <div id="analysis-results"></div>
-        <button onclick="window.print()">Print Results to PDF</button>
-        <button onclick="location.reload()" style="background:#95a5a6; margin-top:10px;">Retake Exam</button>
+        <button onclick="location.reload()" style="background:#7f8c8d; margin-top:20px;">Retake Exam</button>
     </div>
 </div>
 
 <script>
-// MASUKKAN DATA SOAL ANDA DI SINI
+// DATA SOAL ANDA (SAYA MASUKKAN BEBERAPA DARI KONSULTASI TADI SEBAGAI SAMPEL)
 const questions = [
     {
         id: 1,
@@ -1474,8 +1451,8 @@ function renderQuiz() {
     const mount = document.getElementById('quiz-mount');
     mount.innerHTML = questions.map((q, i) => `
         <div class="q-card">
-            <span class="vignette">${i+1}. ${q.vignette}</span>
-            <div class="options-container">
+            <span class="vignette">Item ${i+1}: ${q.vignette}</span>
+            <div>
                 ${Object.entries(q.options).map(([key, text]) => `
                     <label class="opt">
                         <input type="radio" name="q${i}" value="${key}"> 
@@ -1487,6 +1464,7 @@ function renderQuiz() {
     `).join('');
 }
 
+// FUNGSI UNTUK MENGHITUNG SKOR & MENAMPILKAN RATIONALE
 function analyzePerformance() {
     const candidateName = document.getElementById('candidate').value || "ANONYMOUS";
     let score = 0;
@@ -1494,33 +1472,31 @@ function analyzePerformance() {
 
     questions.forEach((q, i) => {
         const selected = document.querySelector(`input[name="q${i}"]:checked`);
-        const userVal = selected ? selected.value : "NO ANSWER";
+        const userVal = selected ? selected.value : "Tidak Dijawab";
         const isCorrect = userVal === q.correct;
         
         if(isCorrect) score++;
 
         report += `
-            <div class="result-row" style="border-color: ${isCorrect ? 'var(--success)' : 'var(--danger)'}">
-                <strong>Item ${i+1}:</strong> 
-                ${isCorrect ? '<span class="pass-marker">[CORRECT]</span>' : '<span class="fail-marker">[INCORRECT]</span>'}
-                <p><em>${q.vignette}</em></p>
-                <div>Your Answer: <strong>${userVal}</strong> | Correct Key: <strong>${q.correct}</strong></div>
-                <div class="rationale-box">
+            <div class="result-row" style="border-left-color: ${isCorrect ? '#27ae60' : '#e74c3c'}">
+                <strong>No. ${i+1}</strong> - ${isCorrect ? '<span style="color:#27ae60">PASS</span>' : '<span style="color:#e74c3c">FAIL</span>'}
+                <p style="font-size:0.9em; color:#555;">${q.vignette}</p>
+                <p>Jawaban Anda: <strong>${userVal}</strong> | Kunci: <strong>${q.correct}</strong></p>
+                <div class="rationale">
                     <strong>Rationale:</strong> ${q.scfhs_rationale}
                 </div>
             </div>`;
     });
 
-    const finalPercent = (score / questions.length) * 100;
-    const isPass = finalPercent >= 60;
+    const finalScore = (score / questions.length) * 100;
+    const isPass = finalScore >= 60;
 
     document.getElementById('meta-data').innerHTML = `
-        <div style="text-align:center; padding:20px; background:${isPass ? '#d4edda' : '#f8d7da'}; border-radius:8px;">
-            <h2 style="margin:0">${isPass ? 'PASSED' : 'FAILED'}</h2>
-            <h1 style="font-size:48px; margin:10px 0;">${finalPercent}%</h1>
-            <p>Candidate: <strong>${candidateName.toUpperCase()}</strong><br>
-            Score: ${score} out of ${questions.length}<br>
-            Status: <strong>${isPass ? 'ELIGIBLE' : 'INELIGIBLE'}</strong></p>
+        <div style="background: ${isPass ? '#d4edda' : '#f8d7da'}; padding: 20px; border-radius: 10px;">
+            <h1 style="margin:0">${finalScore.toFixed(0)}%</h1>
+            <p>CANDIDATE: ${candidateName.toUpperCase()}</p>
+            <p>STATUS: <strong>${isPass ? 'ELIGIBLE / LULUS' : 'FAILURE / TIDAK LULUS'}</strong></p>
+            <p>Score: ${score} / ${questions.length}</p>
         </div>
     `;
 
@@ -1530,7 +1506,7 @@ function analyzePerformance() {
     window.scrollTo(0,0);
 }
 
-// Initialize
+// JALANKAN SAAT HALAMAN DIBUKA
 renderQuiz();
 </script>
 
