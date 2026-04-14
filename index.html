@@ -3,22 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nursing Exam Simulator</title>
+    <title>SCFHS Nursing Exam Simulator - Level 4</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; padding: 20px; color: #333; }
-        .container { max-width: 850px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f2f5; padding: 20px; color: #333; line-height: 1.6; }
+        .container { max-width: 900px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
         .header { border-bottom: 3px solid #2c3e50; margin-bottom: 30px; padding-bottom: 15px; }
-        .q-card { border: 1px solid #e0e0e0; padding: 20px; margin-bottom: 25px; border-radius: 8px; background: #fff; }
-        .vignette { font-weight: 600; font-size: 1.1em; color: #2c3e50; margin-bottom: 15px; display: block; }
-        .opt { display: block; margin: 10px 0; padding: 12px; background: #f8f9fa; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; transition: 0.2s; }
-        .opt:hover { background: #e9ecef; border-color: #bbb; }
-        .opt input { margin-right: 12px; }
-        button { background: #2c3e50; color: white; padding: 18px; border: none; width: 100%; cursor: pointer; border-radius: 8px; font-size: 18px; font-weight: bold; margin-top: 20px; }
-        button:hover { background: #1a252f; }
+        .q-card { border: 1px solid #e0e0e0; padding: 25px; margin-bottom: 30px; border-radius: 8px; background: #fff; position: relative; }
+        .q-number { position: absolute; top: -12px; left: 15px; background: #2c3e50; color: white; padding: 2px 12px; border-radius: 20px; font-weight: bold; font-size: 0.9em; }
+        .vignette { font-weight: 600; font-size: 1.1em; color: #2c3e50; margin-bottom: 20px; display: block; }
+        .opt { display: block; margin: 12px 0; padding: 15px; background: #f8f9fa; border: 1px solid #ddd; border-radius: 8px; cursor: pointer; transition: 0.3s; }
+        .opt:hover { background: #eef2f7; border-color: #3498db; }
+        .opt input { margin-right: 15px; transform: scale(1.2); }
+        .selected-opt { background: #e7eff7; border-color: #3498db; }
+        button { background: #2c3e50; color: white; padding: 20px; border: none; width: 100%; cursor: pointer; border-radius: 8px; font-size: 18px; font-weight: bold; margin-top: 20px; transition: 0.3s; }
+        button:hover { background: #1a252f; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+        
         #transcript { display: none; }
-        .result-row { padding: 20px; margin-bottom: 20px; border-left: 6px solid #ccc; background: #fdfdfd; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .rationale { background: #e7eff7; padding: 15px; margin-top: 15px; border-radius: 6px; font-size: 0.95em; line-height: 1.5; color: #444; border: 1px solid #d1d9e0; }
-        .status-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.8em; font-weight: bold; margin-bottom: 10px; }
+        .result-row { padding: 20px; margin-bottom: 20px; border-left: 6px solid #ccc; background: #fdfdfd; border-radius: 4px; }
+        .correct { border-left-color: #27ae60; background: #f0fff4; }
+        .incorrect { border-left-color: #e74c3c; background: #fff5f5; }
+        .rationale { background: #eef6ff; padding: 15px; margin-top: 15px; border-radius: 6px; font-size: 0.95em; color: #2c3e50; border: 1px dashed #3498db; }
+        .status-badge { display: inline-block; padding: 5px 15px; border-radius: 20px; font-size: 0.85em; font-weight: bold; margin-bottom: 10px; text-transform: uppercase; }
+        
+        .score-box { text-align: center; padding: 40px; border-radius: 12px; color: white; margin-bottom: 30px; }
+        .pass { background: #27ae60; }
+        .fail { background: #e74c3c; }
+
+        @media print { button { display: none; } }
     </style>
 </head>
 <body>
@@ -27,30 +38,30 @@
     <div id="exam-view">
         <div class="header">
             <h1 style="margin:0; color:#2c3e50;">Nursing Competency Simulator</h1>
-            <p style="color:#666;">Standard: <strong>60% Passing Grade</strong> | Target: <strong>Level 4 Competency</strong></p>
+            <p style="color:#666;">Focus: <strong>SCFHS Prometric Standard</strong> | Target: <strong>Critical Thinking Level 4</strong></p>
             <div style="margin-top:20px;">
-                <label>Candidate Name:</label>
-                <input type="text" id="candidate" placeholder="Enter name to unlock results..." style="width:100%; padding:12px; margin-top:8px; border: 1px solid #ccc; border-radius: 4px; font-size:16px;">
+                <label><strong>Candidate Name:</strong></label>
+                <input type="text" id="candidate" placeholder="Input your name..." style="width:100%; padding:12px; margin-top:8px; border: 2px solid #ddd; border-radius: 6px; font-size:16px;">
             </div>
         </div>
 
         <div id="quiz-mount">
             </div>
 
-        <button onclick="analyzePerformance()">FINISH & ANALYZE PERFORMANCE</button>
+        <button onclick="analyzePerformance()">FINISH & GENERATE ANALYTICS</button>
     </div>
 
     <div id="transcript">
-        <div id="meta-data" style="text-align:center; padding:30px; border-radius:12px; margin-bottom:30px;"></div>
+        <div id="meta-data"></div>
         <h2 style="border-bottom: 2px solid #2c3e50; padding-bottom:10px;">Clinical Performance Review</h2>
         <div id="analysis-results"></div>
-        <button onclick="window.print()" style="background:#34495e;">Print Performance Report</button>
-        <button onclick="location.reload()" style="background:#95a5a6; margin-top:10px;">Reset Exam</button>
+        <button onclick="window.print()" style="background:#34495e;">Download PDF Report</button>
+        <button onclick="location.reload()" style="background:#95a5a6; margin-top:10px;">Retake Examination</button>
     </div>
 </div>
 
 <script>
-// --- DATA SOAL ANDA ---
+    // Database Soal (diambil dari rawData Anda)
     const rawData = `
 ID: 1
 V: A 56-year-old man is 8 hours postoperative following an abdominoperineal resection with the creation of a colostomy. During the routine assessment, the nurse inspects the new stoma site. Which of the following findings should the nurse expect at this early stage after surgery?
@@ -401,8 +412,8 @@ D: Raise the head of the bed.
 K: A
 STR: Fokus pada oksigen (B) atau posisi Fowler (D).
 SCFHS: Ini adalah air embolism. (A) Safe Action untuk menjebak udara di atrium kanan. (D) Unsafe karena udara bisa ke otak.
-`;
-    ID: 36
+
+ID: 36
 V: A nurse is preparing a patient for a Paracentesis. Which action is the priority to ensure patient safety during the procedure?
 A: Ask the patient to drink 500 mL of water to fill the bladder.
 B: Instruct the patient to void (empty the bladder) before the procedure.
@@ -591,475 +602,103 @@ D: I will take the medication at the same time every day.
 K: C
 STR: Fokus pada cek nadi (A) sebagai indikator pengajaran berhasil.
 SCFHS: (C) adalah 'Unsafe'. Black licorice menurunkan kalium, yang secara drastis meningkatkan risiko toksisitas Digoxin fatal.
-
-ID: 55
-V: A patient is admitted with a diagnosis of Myasthenia Gravis. The nurse is planning the patient's activities. What is the most important consideration?
-A: Schedule physical therapy in the late afternoon.
-B: Encourage the patient to eat large meals to maintain energy.
-C: Schedule physically demanding activities in the morning.
-D: Perform all nursing care at once to allow for long rest periods.
-K: C
-STR: Memilih mengelompokkan perawatan (D) agar istirahat lama.
-SCFHS: Kekuatan otot MG paling tinggi di pagi hari. (C) adalah 'Safe Action' untuk kemandirian pasien. (B) adalah 'Unsafe' (risiko aspirasi saat otot lelah).
-
-ID: 56
-V: A nurse is working in the Neonatal Intensive Care Unit (NICU). Which action by the nurse best prevents Retinopathy of Prematurity (ROP)?
-A: Administering high-flow oxygen to keep SpO2 at 100%.
-B: Maintaining the lowest possible oxygen concentration to meet SpO2 goals.
-C: Keeping the NICU lights on at all times for better observation.
-D: Positioning the infant in a prone position for 24 hours.
-K: B
-STR: Memilih oksigen tinggi (A) demi 'keamanan' saturasi.
-SCFHS: Oksigen tinggi (A) adalah penyebab utama ROP. (B) adalah 'Safe Action' dengan titrasi oksigen yang sangat ketat.
-
-ID: 57
-V: A nurse is assessing a patient with a suspected Bowel Obstruction. The abdomen is distended, and they are vomiting fecal-stained fluid. What is the first nursing action?
-A: Administer a prescribed laxative.
-B: Insert a Nasogastric (NG) tube and connect to low suction.
-C: Prepare the patient for an immediate colonoscopy.
-D: Encourage the patient to walk to promote peristalsis.
-K: B
-STR: Memberikan laksatif (A) atau mobilisasi (D) untuk 'melancarkan'.
-SCFHS: (B) adalah 'Safe Action' dekompresi. (A) dan (D) adalah 'Unsafe' (risiko perforasi usus tinggi).
-
-ID: 58
-V: A nurse is caring for a patient with a suspected Deep Vein Thrombosis (DVT). The patient suddenly develops chest pain and becomes tachypneic. What is the first action?
-A: Assess the patient's pedal pulses.
-B: Apply oxygen and elevate the head of the bed.
-C: Administer a dose of IV Morphine for the chest pain.
-D: Order a D-dimer blood test.
-K: B
-STR: Fokus pada nadi pedal (A) untuk cek status DVT.
-SCFHS: Ini adalah suspek PE (Pulmonary Embolism). (B) adalah 'Safe Action' darurat. (C) adalah 'Unsafe' (depresi napas saat hipoksia).
-
-ID: 59
-V: A nurse is providing care for a patient with a Chest Tube. The nurse notices the water seal chamber has continuous bubbling. What does this indicate?
-A: The system is functioning normally.
-B: There is an air leak in the system.
-C: The patient has a resolving pneumothorax.
-D: The suction level is too low.
-K: B
-STR: Menganggap gelembung adalah fungsi normal sistem (A).
-SCFHS: Gelembung terus-menerus (B) adalah indikator 'Unsafe' (kebocoran udara). (A) adalah 'Delay' yang membahayakan nyawa.
-
-ID: 60
-V: A nurse is assigned to a patient who is a victim of a crime. The police officer asks for the patient's clothing to be used as evidence. What is the nurse's priority?
-A: Hand over the clothing immediately to avoid obstructing justice.
-B: Place the clothing in a plastic bag and seal it for the officer.
-C: Place the clothing in a paper bag and follow facility's chain of custody.
-D: Refuse to give the clothing until the patient provides written consent.
-K: C
-STR: Menggunakan tas plastik (B) agar rapi/kedap.
-SCFHS: (C) adalah 'Safe Action' forensik. Tas kertas mencegah lembap yang bisa merusak DNA. Kantong plastik (B) adalah 'Unsafe' dalam pelestarian bukti.
-
-ID: 61
-V: A nurse is working in Triage during a mass casualty incident. Which patient should be assigned a 'Red Tag' (Immediate)?
-A: A patient with a traumatic leg amputation and a controlled bleed.
-B: A patient with an open head injury and no spontaneous respirations.
-C: A patient with a sucking chest wound and severe respiratory distress.
-D: A patient with multiple rib fractures and stable vital signs.
-K: C
-STR: Terpaku pada amputasi (A) karena tampilan visual yang dramatis.
-SCFHS: (C) adalah 'Safe Action' Red Tag (salvageable). (A) adalah Yellow. (B) adalah Black Tag (Unsafe use of resources).
-
-ID: 62
-V: An 82-year-old patient with UTI becomes acutely confused at night, tries to pull IV line, and insists they are at a train station. What is the priority?
-A: Administer a PRN dose of Lorazepam for sedation.
-B: Assess the patient's oxygen saturation and physiological status.
-C: Apply soft wrist restraints to protect the IV site.
-D: Request a psychiatric consultation for dementia evaluation.
-K: B
-STR: Fokus pada kontrol perilaku dengan sedasi (A) atau fiksasi (C).
-SCFHS: Kebingungan akut (Delirium) sering disebabkan hipoksia atau infeksi. (B) adalah 'Safe Action' pertama. (A/C) adalah 'Unsafe' (memperburuk delirium).
-
-ID: 63
-V: A 6-month-old infant is admitted with severe diarrhea. The nurse notes a sunken fontanel, dry mucous membranes, and capillary refill of 4 seconds. Which IV fluid order is expected first?
-A: 0.45% Sodium Chloride at a maintenance rate.
-B: 20 mL/kg bolus of 0.9% Sodium Chloride.
-C: 5% Dextrose in Water (D5W) at 50 mL/hr.
-D: Total Parenteral Nutrition (TPN) via central line.
-K: B
-STR: Fokus pada pemeliharaan cairan (A).
-SCFHS: Ini tanda syok dehidrasi. (B) adalah 'Safe Action' bolus isotonik. (A) dan (C) adalah 'Unsafe' (risiko edema serebral pada bayi).
-
-ID: 64
-V: The nurse is caring for a patient with a suspected deep-tissue pressure injury on the heel. The area is intact but purple and boggy. What is the priority intervention?
-A: Massage the purple area to improve circulation.
-B: Apply a transparent film dressing and monitor daily.
-C: Elevate the heels off the bed surface using a pillow under the calves.
-D: Apply a heat lamp to the area for 15 minutes twice a day.
-K: C
-STR: Mencoba memijat (A) untuk memperlancar sirkulasi.
-SCFHS: (C) adalah satu-satunya 'Safe Action' (offloading). Memijat (A) atau lampu panas (D) adalah 'Unsafe' (menghancurkan jaringan yang sudah rapuh).
-
-ID: 65
-V: A patient with a history of alcohol abuse is 48 hours post-admission. The patient becomes tachycardic and reports seeing 'insects crawling on the walls.' What should the nurse do first?
-A: Encourage the patient to stay in a well-lit room with the TV on.
-B: Administer prescribed Diazepam or Chlordiazepoxide.
-C: Document the hallucinations and reassess in 4 hours.
-D: Check the patient's blood alcohol level (BAL).
-K: B
-STR: Mengatur lingkungan (A) tanpa tindakan medis.
-SCFHS: Ini adalah Delirium Tremens (DTs) - keadaan darurat medis. (B) adalah 'Safe Action' untuk mencegah kejang/kematian.
-
-ID: 66
-V: A nurse is suctioning a patient with a tracheostomy. During the procedure, the heart rate drops from 85 bpm to 52 bpm. What is the immediate action?
-A: Continue suctioning to clear the airway quickly.
-B: Stop suctioning and hyperoxygenate the patient with 100% O2.
-C: Administer a dose of Atropine IV as per standing orders.
-D: Call the doctor to report bradycardia.
-K: B
-STR: Langsung memberikan obat Atropin (C).
-SCFHS: Bradikardia saat suction adalah respon vagal/hipoksia. (B) adalah 'Safe Action'. (A) adalah 'Unsafe' (henti jantung).
-
-ID: 67
-V: A patient is receiving IV Magnesium Sulfate for Pre-eclampsia. Respiratory rate is 10 breaths/min and deep tendon reflexes are 0. What is the first action?
-A: Notify the physician immediately.
-B: Turn off the Magnesium Sulfate infusion.
-C: Administer Calcium Gluconate IV push.
-D: Prepare for an emergency C-section.
-K: B
-STR: Seringkali memprioritaskan antidotum (C) sebelum mematikan infus.
-SCFHS: 'Safe Action' pertama adalah menghentikan agen penyebab (B). (C) adalah langkah kedua.
-
-ID: 68
-V: A nurse is caring for a patient who is 24 hours post-op after total knee replacement. The patient suddenly develops sharp chest pain and says, 'I feel like something is wrong.' What is the priority assessment?
-A: Check the surgical site for bleeding or infection.
-B: Auscultate lung sounds and check oxygen saturation.
-C: Assess the patient's pain level using a 0-10 scale.
-D: Perform a neurovascular check on the affected leg.
-K: B
-STR: Fokus pada nyeri (C) atau area operasi (A).
-SCFHS: Nyeri dada mendadak + rasa takut (doom) pasca-op = PE. (B) adalah 'Safe Action' primer.
-
-ID: 69
-V: A child with a fractured arm in a new plaster cast has severe pain not relieved by morphine, and the fingers are pale/cool. What is the priority?
-A: Elevate the arm above the level of the heart.
-B: Notify the surgeon immediately of suspected compartment syndrome.
-C: Apply an ice pack to the cast to reduce swelling.
-D: Administer an additional dose of pain medication.
-K: B
-STR: Melakukan elevasi (A) sebagai standar ortopedi.
-SCFHS: Pada Sindrom Kompartemen, elevasi (A) adalah 'Unsafe' karena mengurangi aliran arteri. (B) adalah 'Safe Action' emergensi.
-
-ID: 70
-V: A patient with Type 1 Diabetes is being taught about exercise. Which statement by the patient indicates a need for further teaching?
-A: I will check my blood sugar before and after I exercise.
-B: I will exercise when my insulin is at its peak effect.
-C: I will carry a fast-acting carbohydrate snack with me.
-D: I will avoid exercise if my blood sugar is over 250 mg/dL with ketones.
-K: B
-STR: Menganggap puncak insulin (B) adalah waktu terbaik untuk aktif.
-SCFHS: (B) adalah 'Unsafe' (risiko tertinggi hipoglikemia). (A), (C), dan (D) adalah 'Safe Actions'.
-`;
-   {
-                id: 71,
-                v: "A nurse is assigned to a patient who has a 'Do Not Resuscitate' (DNR) order. The nurse finds the patient unresponsive and not breathing. What is the nurse's priority action?",
-                options: { A: "Call a 'Code Blue' immediately.", B: "Check the patient's apical pulse and provide comfort care.", C: "Start chest compressions until the doctor arrives.", D: "Call the family to ask if they still want the DNR followed." },
-                k: "B",
-                str: "Panik dan memanggil code blue (A) atau bertanya pada keluarga (D).",
-                scfhs: "(B) adalah 'Safe Action' (menghormati DNR legal). (A) dan (C) adalah 'Unsafe' (pelanggaran hak pasien). (D) adalah 'Delay' yang tidak tepat."
-            },
-            {
-                id: 72,
-                v: "A patient with a central venous catheter (CVC) develops a fever of 39°C and chills. The nurse suspects a Catheter-Related Bloodstream Infection (CRBSI). Which order should the nurse perform first?",
-                options: { A: "Administer the prescribed broad-spectrum antibiotic.", B: "Draw blood cultures from the CVC and a peripheral site.", C: "Remove the CVC and send the tip to the lab.", D: "Give the patient 650 mg of Acetaminophen." },
-                k: "B",
-                str: "Fokus pada antibiotik (A) untuk segera menghentikan demam.",
-                scfhs: "Kultur (B) harus selalu diambil sebelum antibiotik (A). (C) adalah langkah sekunder. (D) adalah 'Delay'."
-            },
-            {
-                id: 73,
-                v: "A 3-year-old child is admitted with a diagnosis of Wilms' Tumor. What is the most important nursing intervention when caring for this child?",
-                options: { A: "Monitor the child's intake and output every hour.", B: "Avoid palpating the child's abdomen.", C: "Encourage a high-protein, high-calorie diet.", D: "Perform daily abdominal girth measurements." },
-                k: "B",
-                str: "Fokus pada pemantauan pertumbuhan tumor (D).",
-                scfhs: "Palpasi (B) adalah 'Safe Action' yang harus dihindari (risiko pecahnya tumor yang terenkapsulasi). (D) adalah 'Unsafe' jika melibatkan palpasi."
-            },
-            {
-                id: 74,
-                v: "The nurse is caring for a patient on a mechanical ventilator. The 'High Pressure' alarm begins to sound. Which action should the nurse take first?",
-                options: { A: "Check for kinks in the tubing or a need for suctioning.", B: "Manually bag the patient with 100% oxygen.", C: "Increase the pressure limit on the ventilator.", D: "Silence the alarm and wait for the respiratory therapist." },
-                k: "A",
-                str: "Panik dan langsung melakukan bagging manual (B).",
-                scfhs: "(A) adalah 'Safe Action' (asesmen sumbatan sederhana). (B) digunakan jika (A) gagal. (C) adalah 'Unsafe'. (D) adalah 'Delay' fatal."
-            },
-            {
-                id: 75,
-                v: "A nurse is preparing to administer a tube feeding via a Nasogastric (NG) tube. Which method is most reliable for confirming position before every feeding?",
-                options: { A: "Instilling 30 mL of air and listening for a 'whoosh'.", B: "Checking the pH of the aspirated gastric contents (pH <5).", C: "Measuring the length of the tube from the nose to the end.", D: "Asking the patient if they feel the tube in their stomach." },
-                k: "B",
-                str: "Menggunakan metode 'whoosh' (A) yang sudah ketinggalan zaman.",
-                scfhs: "(B) adalah 'Safe Action' untuk pengecekan rutin. (A) adalah 'Unsafe' (tidak reliabel). (C) adalah pendukung saja."
-            },
-            {
-                id: 76,
-                v: "A patient with a history of seizures is admitted for observation. Which item is essential to have at the bedside?",
-                options: { A: "Padded tongue blades and a flashlight.", B: "Suction equipment and an oral airway.", C: "Soft wrist restraints and a sedative.", D: "A nasogastric tube and a syringe." },
-                k: "B",
-                str: "Salah memasukkan sudap lidah (tongue blades) (A).",
-                scfhs: "(B) adalah 'Safe Action' untuk perlindungan jalan napas. (A) adalah 'Unsafe' (dilarang memasukkan benda ke mulut saat kejang). (C) adalah 'Unsafe'."
-            },
-            {
-                id: 77,
-                v: "A patient with a T3 spinal cord injury reports a sudden, throbbing headache and BP is 210/110 mmHg. What is the nurse's priority action?",
-                options: { A: "Administer a prescribed antihypertensive medication.", B: "Place the patient in a sitting position (High-Fowler's).", C: "Assess the patient's bladder for distension or catheter kinks.", D: "Document the vitals and notify the physician in 15 minutes." },
-                k: "B",
-                str: "Langsung mencari penyebab seperti distensi kandung kemih (C).",
-                scfhs: "(B) adalah 'Safe Action' pertama (gravitasi membantu menurunkan BP). (C) dilakukan setelah posisi diatur. (D) adalah 'Delay' fatal."
-            },
-            {
-                id: 78,
-                v: "A nurse finds a Brachytherapy implant has fallen out and is on the bed linens. What should the nurse do first?",
-                options: { A: "Pick up the implant with gloved hands and put it in the trash.", B: "Use long-handled forceps to place the implant in a lead container.", C: "Call the radiation oncologist and stay in the room with the patient.", D: "Re-insert the implant immediately." },
-                k: "B",
-                str: "Mencoba membantu pasien (C) atau menggunakan sarung tangan biasa (A).",
-                scfhs: "(B) adalah 'Safe Action' (Time, Distance, Shielding). (A) adalah 'Unsafe'. (C) adalah 'Delay' paparan radiasi. (D) adalah 'Unsafe'."
-            },
-            {
-                id: 79,
-                v: "A patient is admitted with Pulmonary Tuberculosis (TB). Which type of PPE is required for the nurse?",
-                options: { A: "Surgical mask and gloves.", B: "N95 respirator and negative pressure room.", C: "Gown, gloves, and a face shield.", D: "Standard precautions only." },
-                k: "B",
-                str: "Bingung antara Airborne dengan Droplet (A).",
-                scfhs: "TB adalah airborne. (B) adalah 'Safe Action'. (A), (C), dan (D) adalah 'Unsafe' (perlindungan tidak memadai)."
-            },
-            {
-                id: 80,
-                v: "A patient with suspected Myocardial Infarction has ST-segment elevation. Which medication is the priority to administer first?",
-                options: { A: "Morphine IV for pain.", B: "Aspirin (chewable).", C: "Atorvastatin (Statin).", D: "Metoprolol (Beta-blocker)." },
-                k: "B",
-                str: "Fokus pada pereda nyeri (A).",
-                scfhs: "(B) adalah 'Safe Action' (antiplatelet mengurangi mortalitas). (A) adalah sekunder. (C) dan (D) adalah 'Delay'."
-            },
-            {
-                id: 81,
-                v: "During preoperative teaching, a CABG patient says, 'I changed my mind; I don't want the surgery.' What is the nurse's first action?",
-                options: { A: "Reassure the patient and explain the benefits again.", B: "Notify the surgeon and the surgical team.", C: "Ask the family to convince the patient.", D: "Proceed with the preoperative checklist." },
-                k: "B",
-                str: "Fokus pada edukasi ulang (A).",
-                scfhs: "(B) adalah 'Safe Action' (menghormati otonomi). (A) dan (C) adalah 'Delay'. (D) adalah 'Unsafe' (pelanggaran hukum/battery)."
-            },
-            {
-                id: 82,
-                v: "Gastric contents are leaking from the blue 'pigtail' (air vent) of a Salem Sump NG tube. What should the nurse do?",
-                options: { A: "Clamp the blue pigtail immediately.", B: "Instill 10-20 mL of air into the blue pigtail.", C: "Connect the blue pigtail to low intermittent suction.", D: "Flush the blue pigtail with 20 mL of Normal Saline." },
-                k: "B",
-                str: "Mencoba mengklem kebocoran (A).",
-                scfhs: "(B) adalah 'Safe Action' (membersihkan vent). (A) dan (C) adalah 'Unsafe' (merusak lambung/mekanisme sump). (D) adalah 'Unsafe'."
-            },
-            {
-                id: 83,
-                v: "A 5-year-old child with Nephrotic Syndrome is being assessed. Which finding should the nurse prioritize?",
-                options: { A: "4+ Proteinuria.", B: "Generalized edema (Anasarca).", C: "Hypoalbuminemia.", D: "Fever and increased WBC count." },
-                k: "D",
-                str: "Fokus pada tanda khas seperti edema (B).",
-                scfhs: "(D) menandakan infeksi, penyebab kematian utama pada pasien ini karena imunosupresi. (A, B, C) adalah temuan yang memang diharapkan (Delay)."
-            },
-            {
-                id: 84,
-                v: "A patient with a fractured pelvis suddenly becomes restless, confused, and has petechiae on the chest. What is the priority?",
-                options: { A: "Assess the patient's surgical incision.", B: "Administer high-flow oxygen and notify the Rapid Response Team.", C: "Increase the IV fluid rate to 200 mL/hr.", D: "Perform a neurovascular check on the lower extremities." },
-                k: "B",
-                str: "Fokus pada cairan (C).",
-                scfhs: "Petechiae + Kebingungan + Fraktur = Emboli Lemak. (B) adalah 'Safe Action'. (A, C, D) adalah 'Delay'."
-            },
-            {
-                id: 85,
-                v: "What is the primary purpose of Pursed-Lip Breathing for a COPD patient?",
-                options: { A: "To increase the rate of respirations.", B: "To prevent airway collapse during expiration.", C: "To strengthen the intercostal muscles.", D: "To reduce the amount of oxygen needed." },
-                k: "B",
-                str: "Fokus pada penguatan otot (C).",
-                scfhs: "(B) adalah 'Safe Action' (rasional fisiologis). (A) adalah 'Unsafe' (membuat lelah). (C) dan (D) adalah 'Delay'."
-            },
-            {
-                id: 86,
-                v: "A nurse is assigned to a patient with Hepatitis A. Which infection control measure is most important?",
-                options: { A: "Wearing an N95 mask when entering the room.", B: "Practicing meticulous hand hygiene.", C: "Wearing a gown for all patient contact.", D: "Ensuring the patient is in a negative pressure room." },
-                k: "B",
-                str: "Fokus pada penggunaan gaun (C).",
-                scfhs: "Hep A adalah fecal-oral. (B) adalah 'Safe Action' paling kritis. (A, D) adalah 'Unsafe' (salah tindakan pencegahan)."
-            },
-            {
-                id: 87,
-                v: "An Arterial Line waveform has become 'flat' and the monitor is not reading pressure. What should the nurse do first?",
-                options: { A: "Flush the line with the fast-flush device.", B: "Check the position of the patient's limb and the stopcock.", C: "Zero the transducer to the phlebostatic axis.", D: "Notify the physician of a blocked artery." },
-                k: "B",
-                str: "Langsung melakukan flushing (A).",
-                scfhs: "(B) adalah 'Safe Action' (cek tekukan/faktor eksternal). (A) adalah 'Unsafe' jika ada bekuan darah (risiko emboli). (C, D) adalah 'Delay'."
-            },
-            {
-                id: 88,
-                v: "A patient with heart failure is discharged on Furosemide. Which lab value should the nurse monitor closely?",
-                options: { A: "Serum Sodium 138 mEq/L.", B: "Serum Potassium 3.2 mEq/L.", C: "Serum Calcium 9.5 mg/dL.", D: "Serum Creatinine 1.0 mg/dL." },
-                k: "B",
-                str: "Fokus pada natrium (A) karena masalah cairan.",
-                scfhs: "(B) adalah 'Safe Action' (identifikasi risiko hipokalemia). (A, C, D) adalah nilai normal (Delay)."
-            },
-            {
-                id: 89,
-                v: "A patient's femoral dressing is saturated with bright red blood 1-hour post-Cardiac Catheterization. What is the priority?",
-                options: { A: "Reinforce the dressing with additional gauze.", B: "Apply firm manual pressure 1 inch above the insertion site.", C: "Check the patient's pedal pulses.", D: "Notify the physician immediately." },
-                k: "B",
-                str: "Menutup luka dengan kasa tambahan (A).",
-                scfhs: "(B) adalah 'Safe Action' segera. (A) adalah 'Unsafe' (menyembunyikan perdarahan). (C, D) adalah 'Delay'."
-            },
-            {
-                id: 90,
-                v: "A 2-year-old child is not walking and has no verbal words. What should the nurse do first?",
-                options: { A: "Reassure the mother that children develop at different rates.", B: "Perform a developmental screening using a standardized tool.", C: "Refer the child to a neurologist immediately.", D: "Wait until the next 3-year-old check-up to assess again." },
-                k: "B",
-                str: "Fokus pada menenangkan ibu (A).",
-                scfhs: "Ini adalah keterlambatan signifikan. (B) adalah 'Safe Action' (asesmen objektif). (A, D) adalah 'Delay'. (C) adalah langkah sekunder."
-            },
-            {
-                id: 91,
-                v: "What is the best position for a patient during a Thoracentesis?",
-                options: { A: "Prone with a pillow under the chest.", B: "Sitting upright leaning over a bedside table.", C: "Supine with the head of the bed flat.", D: "Left side-lying with the right arm elevated." },
-                k: "B",
-                str: "Menggunakan posisi miring/side-lying (D).",
-                scfhs: "(B) adalah 'Safe Action' (memperlebar ruang interkostal). (A, C, D) salah atau tidak aman untuk prosedur ini."
-            },
-            {
-                id: 92,
-                v: "A patient with 40% TBSA burns is in the emergent phase. What is the priority nursing diagnosis?",
-                options: { A: "Risk for Infection related to skin loss.", B: "Deficient Fluid Volume related to third-spacing.", C: "Disturbed Body Image related to scarring.", D: "Acute Pain related to nerve exposure." },
-                k: "B",
-                str: "Fokus pada infeksi (A).",
-                scfhs: "Pada fase emergent (24-48 jam), syok hipovolemik (B) adalah prioritas 'Safe Action'. (A) adalah prioritas fase akut."
-            },
-            {
-                id: 93,
-                v: "What is a key safety intervention for a patient with a Penrose drain?",
-                options: { A: "Connect the drain to low continuous suction.", B: "Ensure a sterile safety pin is placed through the drain.", C: "Clamp the drain every 4 hours.", D: "Suture the drain to the patient's skin." },
-                k: "B",
-                str: "Mencoba menjahit drain ke kulit (D).",
-                scfhs: "Penrose tidak dijahit. (B) adalah 'Safe Action' (mencegah drain masuk ke dalam luka). (A, C) 'Unsafe' untuk drain gravitasi."
-            },
-            {
-                id: 94,
-                v: "Which finding indicates 'Silent Chest' in an asthma exacerbation?",
-                options: { A: "Loud wheezing heard in all lung fields.", B: "Absence of wheezing and diminished breath sounds.", C: "A cough productive of clear mucus.", D: "Respiratory rate of 24 breaths/minute." },
-                k: "B",
-                str: "Berpikir bahwa suara mengi keras (A) adalah yang terburuk.",
-                scfhs: "(B) adalah prioritas 'Safe Action' (menandakan tidak ada udara masuk). (A) adalah 'Delay'. (C, D) temuan normal pada asma."
-            },
-            {
-                id: 95,
-                v: "Peritoneal dialysis effluent has become cloudy. What does the nurse suspect?",
-                options: { A: "Normal finding during the initial phase.", B: "Peritonitis.", C: "Catheter displacement.", D: "Fibrin clot formation." },
-                k: "B",
-                str: "Menganggap ada bekuan fibrin (D).",
-                scfhs: "Cairan keruh (B) adalah tanda khas peritonitis. (B) adalah 'Safe Action' assessment. (A) 'Unsafe'. (C, D) adalah 'Delay'."
-            },
-            {
-                id: 96,
-                v: "Which site is most appropriate for an IM injection in a 6-month-old infant?",
-                options: { A: "Dorsogluteal muscle.", B: "Vastus lateralis muscle.", C: "Deltoid muscle.", D: "Ventrogluteal muscle." },
-                k: "B",
-                str: "Menggunakan deltoid (C).",
-                scfhs: "(B) adalah 'Safe Action' untuk bayi. (A) 'Unsafe' (risiko saraf). (C, D) tidak aman untuk usia ini."
-            },
-            {
-                id: 97,
-                v: "Heparin infusion patient has an aPTT of 110 seconds (Control: 30). What is the priority action?",
-                options: { A: "Continue the infusion and recheck in 1 hour.", B: "Stop the infusion and notify the physician.", C: "Increase the infusion rate.", D: "Administer Vitamin K as the antidote." },
-                k: "B",
-                str: "Tertukar antidot dengan Vitamin K (D).",
-                scfhs: "aPTT >3x kontrol (toksik). (B) adalah 'Safe Action'. (D) salah antidot (Vitamin K untuk Warfarin)."
-            },
-            {
-                id: 100,
-                v: "Which EHR entry is most professional and accurate?",
-                options: { A: "The patient seems to be having a good day.", B: "Patient's wound is healing nicely with no problems.", C: "Abdominal dressing is dry and intact; no drainage noted.", D: "Doctor was notified about the patient's bad behavior." },
-                k: "C",
-                str: "Menggunakan istilah subjektif seperti 'baik' atau 'bagus' (A, B).",
-                scfhs: "(C) adalah satu-satunya dokumentasi 'Safe Action' yang objektif. (A, B, D) bersifat subjektif/tidak profesional."
-            }
-        ];
-
-// --- LOGIKA MESIN (JANGAN DIUBAH AGAR TIDAK STUCK) ---
-function renderQuiz() {
-    const mount = document.getElementById('quiz-mount');
-    if (!questions || questions.length === 0) {
-        mount.innerHTML = "<p style='color:red;'>Error: No questions found in data array!</p>";
-        return;
-    }
-
-    mount.innerHTML = questions.map((q, i) => {
-        // Render options dynamically from the object A, B, C, D
-        let optsHtml = "";
-        for (const [key, value] of Object.entries(q.options)) {
-            optsHtml += `
-                <label class="opt">
-                    <input type="radio" name="q${i}" value="${key}">
-                    <strong>${key}:</strong> ${value}
-                </label>
-            `;
-        }
-
-        return `
-            <div class="q-card">
-                <span class="vignette">Question ${i + 1}:</span>
-                <p>${q.vignette}</p>
-                <div class="options-container">
-                    ${optsHtml}
-                </div>
-            </div>
-        `;
-    }).join('');
-}
-
-function analyzePerformance() {
-    const candidateName = document.getElementById('candidate').value || "ANONYMOUS CANDIDATE";
-    let score = 0;
-    let reportHtml = "";
-
-    questions.forEach((q, i) => {
-        const selected = document.querySelector(`input[name="q${i}"]:checked`);
-        const userVal = selected ? selected.value : "UNANSWERED";
-        const isCorrect = userVal === q.correct;
-        
-        if (isCorrect) score++;
-
-        reportHtml += `
-            <div class="result-row" style="border-left-color: ${isCorrect ? '#27ae60' : '#e74c3c'}">
-                <span class="status-badge" style="background:${isCorrect ? '#d4edda' : '#f8d7da'}; color:${isCorrect ? '#155724' : '#721c24'}">
-                    ${isCorrect ? 'SUCCESS' : 'SAFETY RISK'}
-                </span>
-                <p><strong>Item ${i+1}:</strong> ${q.vignette}</p>
-                <p>Your Selection: <span style="color:${isCorrect ? '#27ae60' : '#e74c3c'}"><strong>${userVal}</strong></span> | Correct Key: <strong>${q.correct}</strong></p>
-                <div class="rationale">
-                    <strong>Clinical Rationale:</strong><br>${q.scfhs_rationale}
-                </div>
-            </div>`;
-    });
-
-    const percent = (score / questions.length) * 100;
-    const isPass = percent >= 60;
-
-    document.getElementById('meta-data').innerHTML = `
-        <div style="background: ${isPass ? '#27ae60' : '#e74c3c'}; color: white; padding: 20px; border-radius: 12px;">
-            <h1 style="margin:0; font-size: 42px;">${percent.toFixed(0)}%</h1>
-            <p style="margin:5px 0; font-size: 1.2em;"><strong>${isPass ? 'PASSED / ELIGIBLE' : 'FAILED / INELIGIBLE'}</strong></p>
-            <p style="margin:0; opacity: 0.9;">Candidate: ${candidateName.toUpperCase()}</p>
-            <p style="margin:0; opacity: 0.9;">Raw Score: ${score} / ${questions.length}</p>
-        </div>
     `;
 
-    document.getElementById('analysis-results').innerHTML = reportHtml;
-    document.getElementById('exam-view').style.display = "none";
-    document.getElementById('transcript').style.display = "block";
-    window.scrollTo(0,0);
-}
+    // Parser Logic: Mengubah teks mentah menjadi array objek
+    function parseQuestions(text) {
+        const blocks = text.trim().split(/ID: \d+/);
+        const questions = [];
+        let idCounter = 1;
 
-// Jalankan saat load
-try {
+        blocks.forEach(block => {
+            if (block.trim() === "") return;
+            
+            const lines = block.trim().split('\n');
+            const qObj = { id: idCounter++, options: {} };
+            
+            lines.forEach(line => {
+                if (line.startsWith('V:')) qObj.vignette = line.replace('V:', '').trim();
+                if (line.startsWith('A:')) qObj.options.A = line.replace('A:', '').trim();
+                if (line.startsWith('B:')) qObj.options.B = line.replace('B:', '').trim();
+                if (line.startsWith('C:')) qObj.options.C = line.replace('C:', '').trim();
+                if (line.startsWith('D:')) qObj.options.D = line.replace('D:', '').trim();
+                if (line.startsWith('K:')) qObj.key = line.replace('K:', '').trim();
+                if (line.startsWith('SCFHS:')) qObj.rationale = line.replace('SCFHS:', '').trim();
+            });
+            questions.push(qObj);
+        });
+        return questions;
+    }
+
+    const quizData = parseQuestions(rawData);
+
+    // Render Logic
+    function renderQuiz() {
+        const mount = document.getElementById('quiz-mount');
+        quizData.forEach((q, index) => {
+            const card = document.createElement('div');
+            card.className = 'q-card';
+            card.innerHTML = `
+                <div class="q-number">Question ${q.id}</div>
+                <div class="vignette">${q.vignette}</div>
+                <label class="opt" onclick="select(this)"><input type="radio" name="q${q.id}" value="A"> ${q.options.A}</label>
+                <label class="opt" onclick="select(this)"><input type="radio" name="q${q.id}" value="B"> ${q.options.B}</label>
+                <label class="opt" onclick="select(this)"><input type="radio" name="q${q.id}" value="C"> ${q.options.C}</label>
+                <label class="opt" onclick="select(this)"><input type="radio" name="q${q.id}" value="D"> ${q.options.D}</label>
+            `;
+            mount.appendChild(card);
+        });
+    }
+
+    window.select = function(element) {
+        const parent = element.parentElement;
+        parent.querySelectorAll('.opt').forEach(o => o.classList.remove('selected-opt'));
+        element.classList.add('selected-opt');
+    };
+
+    // Analysis Logic
+    window.analyzePerformance = function() {
+        const name = document.getElementById('candidate').value || "Guest Candidate";
+        let correctCount = 0;
+        let htmlResults = "";
+
+        quizData.forEach(q => {
+            const selected = document.querySelector(`input[name="q${q.id}"]:checked`);
+            const answer = selected ? selected.value : "No Answer";
+            const isCorrect = answer === q.key;
+            if (isCorrect) correctCount++;
+
+            htmlResults += `
+                <div class="result-row ${isCorrect ? 'correct' : 'incorrect'}">
+                    <span class="status-badge" style="background:${isCorrect ? '#27ae60' : '#e74c3c'}; color:white">
+                        ${isCorrect ? 'Correct' : 'Incorrect'}
+                    </span>
+                    <p><strong>Q${q.id}:</strong> ${q.vignette}</p>
+                    <p>Your Answer: <span style="font-weight:bold">${answer}</span> | 
+                       Correct Answer: <span style="font-weight:bold; color:#27ae60">${q.key}</span></p>
+                    <div class="rationale"><strong>Clinical Rationale:</strong> ${q.rationale}</div>
+                </div>
+            `;
+        });
+
+        const score = Math.round((correctCount / quizData.length) * 100);
+        const passed = score >= 60;
+
+        document.getElementById('exam-view').style.display = 'none';
+        document.getElementById('transcript').style.display = 'block';
+
+        document.getElementById('meta-data').innerHTML = `
+            <div class="score-box ${passed ? 'pass' : 'fail'}">
+                <h1 style="margin:0; font-size:3em;">${score}%</h1>
+                <h2>${passed ? 'PASSED - CLINICALLY COMPETENT' : 'FAILED - NEEDS REMEDIATION'}</h2>
+                <p>Candidate: ${name} | Date: ${new Date().toLocaleDateString()}</p>
+            </div>
+        `;
+        document.getElementById('analysis-results').innerHTML = htmlResults;
+        window.scrollTo(0,0);
+    };
+
     renderQuiz();
-} catch (err) {
-    document.getElementById('quiz-mount').innerHTML = "<p style='color:red;'>Critical Error: Check your question data format!</p>";
-    console.error(err);
-}
 </script>
 
 </body>
