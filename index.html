@@ -3,56 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SCFHS Prometric Exam Simulator - Level 4</title>
+    <title>Prometric Practice Exam - Fundamental Nursing</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f9; color: #333; line-height: 1.6; }
-        .container { max-width: 900px; margin: 30px auto; background: white; padding: 40px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; text-align: center; }
-        .header-info { display: flex; justify-content: space-between; margin-bottom: 30px; background: #eef2f5; padding: 15px; border-radius: 5px; }
-        .input-group { margin-bottom: 15px; }
-        input[type="text"] { padding: 8px; width: 250px; border: 1px solid #ccc; border-radius: 4px; }
-        .question-card { margin-bottom: 40px; padding: 20px; border-left: 5px solid #3498db; background: #fafafa; }
-        .vignette { font-style: italic; font-weight: 500; margin-bottom: 15px; color: #2c3e50; }
-        .options-list { list-style: none; padding: 0; }
-        .option-item { margin: 10px 0; padding: 10px; border: 1px solid #ddd; border-radius: 4px; cursor: pointer; transition: 0.3s; }
-        .option-item:hover { background: #e1f5fe; }
-        .option-item.selected { background: #3498db; color: white; border-color: #2980b9; }
-        #submit-btn { display: block; width: 100%; padding: 15px; background: #27ae60; color: white; border: none; border-radius: 5px; font-size: 18px; cursor: pointer; }
-        #result-area { display: none; margin-top: 30px; }
-        .rationale-box { margin-top: 15px; padding: 15px; background: #fff3cd; border-left: 5px solid #ffc107; font-size: 0.9em; }
-        .correct { border-color: #27ae60 !important; background: #d4edda !important; color: #155724; }
-        .incorrect { border-color: #c0392b !important; background: #f8d7da !important; color: #721c24; }
-        .tag { font-size: 0.7em; font-weight: bold; text-transform: uppercase; padding: 2px 5px; border-radius: 3px; background: #34495e; color: white; margin-right: 5px; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; background-color: #f4f7f6; color: #333; margin: 0; padding: 20px; }
+        .container { max-width: 900px; margin: auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        header { border-bottom: 3px solid #2c3e50; padding-bottom: 20px; margin-bottom: 30px; }
+        h1 { color: #2c3e50; margin: 0; font-size: 24px; }
+        #timer { font-size: 20px; font-weight: bold; color: #e74c3c; float: right; }
+        .info-bar { background-color: #f9f9f9; padding: 15px; border-radius: 8px; margin-top: 20px; display: flex; justify-content: space-between; }
+        .question-block { margin-bottom: 30px; padding: 20px; border: 1px solid #edf2f7; border-radius: 8px; }
+        .question-text { font-weight: bold; font-size: 1.1em; margin-bottom: 15px; }
+        .options label { display: block; background: #f8fafc; margin: 8px 0; padding: 12px; border-radius: 5px; cursor: pointer; border: 1px solid #e2e8f0; transition: 0.2s; }
+        .options label:hover { background: #edf2f7; }
+        input[type="radio"] { margin-right: 10px; }
+        .btn-submit { display: block; width: 100%; padding: 15px; background: #2980b9; color: white; border: none; border-radius: 5px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 20px; }
+        .btn-submit:hover { background: #2471a3; }
+        #resultsSummary { display: none; margin-top: 30px; border: 2px solid #2c3e50; border-radius: 10px; padding: 25px; }
+        .rationale-box { margin-top: 10px; font-size: 0.9em; background: #f1f8ff; padding: 15px; border-radius: 5px; border-left: 5px solid #2980b9; }
+        .correct { border-left: 5px solid #27ae60 !important; background: #f0fff4 !important; }
+        .wrong { border-left: 5px solid #e74c3c !important; background: #fff5f5 !important; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>SCFHS PROMETRIC NURSING (LEVEL 4)</h1>
-    
-    <div class="header-info">
-        <div class="input-group">
-            <label>Candidate Name:</label><br>
-            <input type="text" id="candidateName" placeholder="Enter Full Name">
+    <header>
+        <span id="timer">Time Remaining: 60:00</span>
+        <h1>PROMETRIC EXAM: FUNDAMENTAL NURSING</h1>
+        <div class="info-bar">
+            <div><strong>Candidate:</strong> [Test Taker]</div>
+            <div><strong>Passing Grade:</strong> <span style="color: #27ae60;">70%</span></div>
         </div>
-        <div>
-            <strong>Passing Grade: 70%</strong><br>
-            <strong>Focus: Clinical Trapping & NPSG</strong>
+    </header>
+
+    <div id="quizContainer">
         </div>
+
+    <div id="submitArea">
+        <button class="btn-submit" onclick="calculateResults()">SUBMIT FINAL EXAM</button>
     </div>
 
-    <div id="quiz-container"></div>
-
-    <button id="submit-btn" onclick="calculateScore()">Submit Examination</button>
-
-    <div id="result-area">
-        <h2 id="score-text"></h2>
-        <div id="detailed-analysis"></div>
+    <div id="resultsSummary">
+        <h2 style="text-align: center;">EXAM PERFORMANCE REPORT</h2>
+        <div style="display: flex; justify-content: space-around; text-align: center; margin: 20px 0;">
+            <div><p>Score</p><h3 id="finalScoreText">0/30</h3></div>
+            <div><p>Percentage</p><h3 id="finalPercentageText">0%</h3></div>
+            <div><p>Result</p><h3 id="passFailStatus">---</h3></div>
+        </div>
+        <hr>
+        <h4>ITEM ANALYSIS & RATIONALE</h4>
+        <div id="detailedReview"></div>
     </div>
 </div>
 
 <script>
-const testItems = [
+const questions = [
     {
         id: 1,
         vignette: "A 56-year-old man is 8 hours postoperative following an abdominoperineal resection with the creation of a colostomy. During the routine assessment, the nurse inspects the new stoma site. Which of the following findings should the nurse expect at this early stage after surgery?",
@@ -1456,348 +1461,202 @@ const testItems = [
 {
         id: 101,
         vignette: "The nurse manager is reviewing the unit’s medication error reports. Which action best demonstrates the 'Just Culture' approach to clinical governance?",
-        options: {
-            A: "Suspending the nurse involved in the most recent error to set an example.",
-            B: "Analyzing the system failures that allowed the error to occur.",
-            C: "Requiring all nurses to retake a medication administration exam.",
-            D: "Removing the error report from the permanent record if no harm occurred."
-        },
+        options: { A: "Suspending the nurse involved", B: "Analyzing the system failures", C: "Requiring all nurses to retake exam", D: "Removing the error report" },
         correct: "B",
-        contentValue: "Clinical Governance: Just Culture",
-        str_rationale: "STR often focuses on individual retraining (C) or punishment (A).",
-        scfhs_rationale: "SCFHS: Just Culture prioritizes system improvement over individual blame. (B) is the 'Safe Action'. (A) and (C) are 'Delays' that discourage reporting. (D) is 'Unsafe'."
+        scfhs_rationale: "Just Culture prioritizes system improvement over individual blame."
     },
     {
         id: 102,
-        vignette: "A 28-year-old woman at 32 weeks gestation presents with a sudden gush of clear fluid from the vagina. A nitrazine test is positive (blue). What is the nurse's priority to prevent neonatal complications?",
-        options: {
-            A: "Prepare for immediate induction of labor with Oxytocin.",
-            B: "Administer Betamethasone IM as prescribed.",
-            C: "Perform frequent vaginal exams to monitor progress.",
-            D: "Encourage the patient to walk to help the baby drop."
-        },
+        vignette: "A 28-year-old woman at 32 weeks gestation presents with a sudden gush of clear fluid. Nitrazine test is positive (blue). Priority?",
+        options: { A: "Immediate induction", B: "Administer Betamethasone IM", C: "Frequent vaginal exams", D: "Encourage walking" },
         correct: "B",
-        contentValue: "Maternity: Preterm Premature Rupture of Membranes (PPROM)",
-        str_rationale: "STR might focus on delivery (A).",
-        scfhs_rationale: "SCFHS: In PPROM, the priority is fetal lung maturity. (B) is the 'Safe Action'. (A) is a 'Delay' if not yet indicated. (C) and (D) are 'Unsafe' (increase infection/cord prolapse risk)."
+        scfhs_rationale: "In PPROM, the priority is fetal lung maturity using steroids."
     },
     {
         id: 103,
-        vignette: "A patient with a history of heart failure is admitted with Pulmonary Edema. The physician orders Furosemide 40mg IV push. Which assessment finding requires the nurse to hold the medication and notify the doctor?",
-        options: {
-            A: "Blood pressure of 150/90 mmHg.",
-            B: "Potassium level of 2.8 mEq/L.",
-            C: "Crackles in the bilateral lung bases.",
-            D: "Weight gain of 1 kg in 24 hours."
-        },
+        vignette: "Patient with heart failure/Pulmonary Edema. Furosemide 40mg IV ordered. Which finding requires holding the med?",
+        options: { A: "BP 150/90", B: "Potassium 2.8 mEq/L", C: "Crackles in lungs", D: "Weight gain 1kg" },
         correct: "B",
-        contentValue: "Medication Safety: Electrolyte Imbalance",
-        str_rationale: "STR focuses on the blood pressure (A).",
-        scfhs_rationale: "SCFHS: Furosemide is potassium-wasting. (B) is 'Unsafe' as it will worsen severe hypokalemia, risking cardiac arrest. (A), (C), and (D) are indications *for* the drug (Delays)."
+        scfhs_rationale: "Furosemide is potassium-wasting; giving it to a hypokalemic patient risks cardiac arrest."
     },
     {
         id: 104,
-        vignette: "A nurse is working in a primary health clinic. A mother brings her 18-month-old child who has not received any vaccinations since birth. What is the nurse's priority action?",
-        options: {
-            A: "Administer all missing vaccines at once in the same limb.",
-            B: "Develop a 'catch-up' immunization schedule based on national guidelines.",
-            C: "Refuse to treat the child until the mother explains the delay.",
-            D: "Give only the flu vaccine and tell the mother to return next month."
-        },
+        vignette: "18-month-old child has not received any vaccinations since birth. Nurse's priority?",
+        options: { A: "Give all at once", B: "Develop catch-up schedule", C: "Refuse treatment", D: "Give only flu vaccine" },
         correct: "B",
-        contentValue: "Community Health: Immunization Safety",
-        str_rationale: "STR might try to do everything at once (A).",
-        scfhs_rationale: "SCFHS: (B) is the 'Safe Action' for clinical compliance. (A) is 'Unsafe' (improper administration). (C) is 'Unsafe' (ethical violation). (D) is a 'Delay'."
+        scfhs_rationale: "Catch-up schedules follow national guidelines for safe immunization."
     },
     {
         id: 105,
-        vignette: "A patient is admitted with a suspected Cervical Spine Injury after a motor vehicle accident. The nurse notes the patient's BP is 80/40 mmHg, HR is 50 bpm, and the skin is warm and dry. What should the nurse suspect?",
-        options: {
-            A: "Hypovolemic Shock.",
-            B: "Neurogenic Shock.",
-            C: "Cardiogenic Shock.",
-            D: "Septic Shock."
-        },
+        vignette: "C-Spine injury. BP 80/40, HR 50, skin warm/dry. Suspect?",
+        options: { A: "Hypovolemic Shock", B: "Neurogenic Shock", C: "Cardiogenic Shock", D: "Septic Shock" },
         correct: "B",
-        contentValue: "Emergency: Spinal Cord Injury Complications",
-        str_rationale: "STR often defaults to Hypovolemic (A) in trauma cases.",
-        scfhs_rationale: "SCFHS: Hypotension + Bradycardia + Warm skin = Neurogenic Shock. (B) is the 'Safe Action' assessment. (A) is 'Unsafe' (requires different treatment). (C) and (D) are 'Delays'."
+        scfhs_rationale: "Hypotension + Bradycardia + Warm skin = Neurogenic Shock."
     },
     {
         id: 106,
-        vignette: "During a home visit, the nurse finds an elderly patient with multiple bruises in various stages of healing and a fearful expression when the caregiver enters the room. What is the nurse's legal priority?",
-        options: {
-            A: "Confront the caregiver about the bruises.",
-            B: "Report the suspected abuse to the appropriate authorities.",
-            C: "Document the findings and wait for the next visit to see if it continues.",
-            D: "Give the patient a pamphlet on elderly rights."
-        },
+        vignette: "Elderly patient has multiple bruises and is fearful of caregiver. Legal priority?",
+        options: { A: "Confront caregiver", B: "Report suspected abuse", C: "Wait for next visit", D: "Give pamphlet" },
         correct: "B",
-        contentValue: "Clinical Governance: Mandatory Reporting",
-        str_rationale: "STR might try to handle it internally (A).",
-        scfhs_rationale: "SCFHS: (B) is the mandatory 'Safe Action'. (A) is 'Unsafe' (may put patient in more danger). (C) is a fatal 'Delay'. (D) is a 'Delay'."
+        scfhs_rationale: "Nurses are mandatory reporters for suspected vulnerable adult abuse."
     },
     {
         id: 107,
-        vignette: "A nurse is preparing to administer an IV Bolus of Adenosine to a patient with Supraventricular Tachycardia (SVT). What is a critical nursing consideration for this medication?",
-        options: {
-            A: "Administer the drug slowly over 5 to 10 minutes.",
-            B: "Administer the drug rapidly (1-2 seconds) followed by a saline flush.",
-            C: "Hold the drug if the patient's heart rate is over 150 bpm.",
-            D: "Ensure the patient is in a prone position before administration."
-        },
+        vignette: "Preparing Adenosine IV Bolus for SVT. Critical consideration?",
+        options: { A: "Administer slowly (5 mins)", B: "Administer rapidly (1-2s) + flush", C: "Hold if HR > 150", D: "Prone position" },
         correct: "B",
-        contentValue: "Medication Safety: Advanced Cardiac Life Support (ACLS)",
-        str_rationale: "STR might apply the general 'slow IV' rule (A).",
-        scfhs_rationale: "SCFHS: Adenosine has a very short half-life. (B) is the 'Safe Action'. (A) is 'Unsafe' (the drug will be ineffective). (C) is incorrect (the drug is *for* high HR). (D) is 'Unsafe'."
+        scfhs_rationale: "Adenosine has a seconds-long half-life; rapid push is mandatory."
     },
     {
         id: 108,
-        vignette: "A patient with a chest tube is being transported to the radiology department. Which action by the transporter requires the nurse's immediate intervention?",
-        options: {
-            A: "Keeping the drainage system below the patient's chest level.",
-            B: "Clamping the chest tube to prevent fluid from flowing back.",
-            C: "Ensuring the tubing is free of kinks and loops.",
-            D: "Securing the drainage system to the side of the stretcher."
-        },
+        vignette: "Chest tube patient transport. Which action requires immediate intervention?",
+        options: { A: "Drainage below chest", B: "Clamping the tube", C: "Tubing free of kinks", D: "Securing system to stretcher" },
         correct: "B",
-        contentValue: "Clinical Safety: Chest Tube Transport",
-        str_rationale: "STR often mistakenly thinks clamping (B) is a safety measure.",
-        scfhs_rationale: "SCFHS: (B) is 'Unsafe' as it risks tension pneumothorax. (A), (C), and (D) are 'Safe Actions'."
+        scfhs_rationale: "Clamping a chest tube during transport risks tension pneumothorax."
     },
     {
         id: 109,
-        vignette: "A nurse is caring for a patient who is 6 hours post-op from a Carotid Endarterectomy. The patient suddenly develops a midline neck swelling and stridor. What is the priority?",
-        options: {
-            A: "Apply a cold compress to the neck.",
-            B: "Call the Rapid Response Team and prepare for emergency intubation/tracheostomy.",
-            C: "Administer a dose of pain medication.",
-            D: "Encourage the patient to cough and deep breathe."
-        },
+        vignette: "6h post-Carotid Endarterectomy. Neck swelling and stridor. Priority?",
+        options: { A: "Cold compress", B: "Rapid Response / Emergency Airway", C: "Pain medication", D: "Cough/Deep breathe" },
         correct: "B",
-        contentValue: "Surgical Emergency: Airway Obstruction",
-        str_rationale: "STR focuses on the swelling (A).",
-        scfhs_rationale: "SCFHS: Stridor post-neck surgery indicates hematoma compressing the airway. (B) is the 'Safe Action'. (A), (C), and (D) are fatal 'Delays'."
+        scfhs_rationale: "Neck swelling + stridor = airway compression from hematoma."
     },
     {
         id: 110,
-        vignette: "A patient is admitted with a diagnosis of Guillain-Barré Syndrome. Which assessment is most critical for the nurse to perform regularly?",
-        options: {
-            A: "Lower extremity muscle strength.",
-            B: "Vital capacity and respiratory effort.",
-            C: "Skin integrity on the sacrum.",
-            D: "Bowel sounds and abdominal distension."
-        },
+        vignette: "Patient with Guillain-Barré Syndrome. Critical regular assessment?",
+        options: { A: "Leg strength", B: "Vital capacity / Resp effort", C: "Skin integrity", D: "Bowel sounds" },
         correct: "B",
-        contentValue: "Neuromuscular Safety: GBS",
-        str_rationale: "STR focuses on the obvious symptom (A).",
-        scfhs_rationale: "SCFHS: Ascending paralysis leads to respiratory failure. (B) is the 'Safe Action' assessment. (A) is expected (Delay). (C) and (D) are supportive but secondary (Delays)."
+        scfhs_rationale: "GBS can lead to rapid respiratory muscle paralysis."
     },
     {
         id: 111,
-        vignette: "The nurse is providing care for a patient with a T-tube after a cholecystectomy. The nurse notes 500 mL of bile-stained drainage in the first 24 hours. What is the nurse's best action?",
-        options: {
-            A: "Clamp the T-tube immediately.",
-            B: "Notify the physician of excessive drainage.",
-            C: "Document the finding as an expected post-operative result.",
-            D: "Irrigate the T-tube with sterile water."
-        },
+        vignette: "T-tube after cholecystectomy. 500 mL bile in first 24 hours. Best action?",
+        options: { A: "Clamp tube", B: "Notify doctor of excess", C: "Document as expected", D: "Irrigate tube" },
         correct: "C",
-        contentValue: "Post-op Safety: T-tube Management",
-        str_rationale: "STR might panic at the volume (B).",
-        scfhs_rationale: "SCFHS: 300-500 mL is normal in the first 24 hours. (C) is the 'Safe Action'. (A) and (D) are 'Unsafe'. (B) is a 'Delay' (unnecessary call)."
+        scfhs_rationale: "Up to 500 mL bile is normal in the first 24h post-op."
     },
     {
         id: 112,
-        vignette: "A nurse is caring for a patient with a large, eviscerated abdominal wound. What is the priority nursing intervention?",
-        options: {
-            A: "Attempt to push the protruding organs back into the abdomen.",
-            B: "Cover the wound with a sterile dressing moistened with warm sterile saline.",
-            C: "Cover the wound with a dry sterile gauze and secure it tightly.",
-            D: "Leave the wound open to the air and notify the surgeon."
-        },
+        vignette: "Large eviscerated abdominal wound. Priority?",
+        options: { A: "Push organs back", B: "Moist sterile warm saline dressing", C: "Dry sterile gauze", D: "Leave open to air" },
         correct: "B",
-        contentValue: "Surgical Emergency: Evisceration",
-        str_rationale: "STR might choose (A) to 'fix' it.",
-        scfhs_rationale: "SCFHS: (B) is the 'Safe Action' to prevent tissue drying/necrosis. (A) is 'Unsafe' (infection/trauma). (C) is 'Unsafe' (organs will stick to dry gauze). (D) is 'Unsafe'."
+        scfhs_rationale: "Moist saline prevents tissue drying and necrosis."
     },
     {
         id: 113,
-        vignette: "A 4-year-old child is brought to the clinic for a well-child visit. The mother asks about 'potty training.' Which sign indicates the child is developmentally ready?",
-        options: {
-            A: "The child can name all the colors in a crayon box.",
-            B: "The child stays dry for at least 2 hours at a time.",
-            C: "The child can count to ten without help.",
-            D: "The child refuses to eat vegetables."
-        },
+        vignette: "4-year-old child potty training readiness sign?",
+        options: { A: "Names colors", B: "Stays dry for 2 hours", C: "Counts to ten", D: "Refuses vegetables" },
         correct: "B",
-        contentValue: "Pediatric: Developmental Milestones",
-        str_rationale: "STR focuses on cognitive milestones (C).",
-        scfhs_rationale: "SCFHS: Physical readiness (bladder capacity) is key. (B) is the 'Safe Action' assessment. (A), (C), and (D) are irrelevant (Delays)."
+        scfhs_rationale: "Bladder capacity (staying dry) is a physiological readiness sign."
     },
     {
         id: 114,
-        vignette: "A nurse is preparing to hang a new bag of IV fluids. The nurse notices small particles floating in the solution. What should the nurse do?",
-        options: {
-            A: "Shake the bag to dissolve the particles.",
-            B: "Return the bag to the pharmacy and obtain a new one.",
-            C: "Filter the solution using a 0.22-micron filter.",
-            D: "Administer the fluid slowly to see if the patient reacts."
-        },
+        vignette: "Floating particles in IV fluid bag. Action?",
+        options: { A: "Shake bag", B: "Return to pharmacy", C: "Filter solution", D: "Administer slowly" },
         correct: "B",
-        contentValue: "NPSG: Medication Safety",
-        str_rationale: "STR might try to filter it (C).",
-        scfhs_rationale: "SCFHS: (B) is the only 'Safe Action' for contaminated/precipitated fluids. (A), (C), and (D) are 'Unsafe'."
+        scfhs_rationale: "Particles indicate contamination or precipitation; never administer."
     },
     {
         id: 115,
-        vignette: "A patient with a history of seizures is having a tonic-clonic seizure in bed. What is the priority nursing action?",
-        options: {
-            A: "Restrain the patient's arms and legs to prevent injury.",
-            B: "Turn the patient to the side and protect the head from injury.",
-            C: "Insert a padded tongue blade into the patient's mouth.",
-            D: "Call a 'Code Blue' immediately."
-        },
+        vignette: "Tonic-clonic seizure in bed. Priority?",
+        options: { A: "Restrain limbs", B: "Turn to side / protect head", C: "Insert tongue blade", D: "Call Code Blue" },
         correct: "B",
-        contentValue: "NPSG: Seizure Safety",
-        str_rationale: "STR often uses tongue blades (C) or restraints (A).",
-        scfhs_rationale: "SCFHS: (B) is the 'Safe Action'. (A) and (C) are 'Unsafe' (cause fractures/airway trauma). (D) is a 'Delay' unless the seizure is prolonged (Status Epilepticus)."
+        scfhs_rationale: "Side-lying prevents aspiration; protecting head prevents trauma."
     },
     {
         id: 116,
-        vignette: "The nurse is caring for a patient on the psychiatric unit who says, 'I hear voices telling me to hurt the nurse on the next shift.' What is the nurse's priority?",
-        options: {
-            A: "Document the statement in the patient's chart and tell no one else.",
-            B: "Notify the nurse on the next shift and the treatment team.",
-            C: "Reassure the patient that the voices are not real.",
-            D: "Administer a sedative and place the patient in seclusion."
-        },
+        vignette: "Psych patient says: 'I hear voices telling me to hurt the next shift nurse.' Priority?",
+        options: { A: "Document only", B: "Notify next shift / Team", C: "Reassure voices aren't real", D: "Seclusion" },
         correct: "B",
-        contentValue: "Mental Health: Duty to Warn",
-        str_rationale: "STR focuses on the patient's perception (C).",
-        scfhs_rationale: "SCFHS: This is a direct threat. (B) is the 'Safe Action' (Duty to Warn). (A) is 'Unsafe' (negligence). (C) and (D) are 'Delays/Unsafe'."
+        scfhs_rationale: "Duty to warn is mandatory when a specific threat is made."
     },
     {
         id: 117,
-        vignette: "A patient is admitted with a diagnosis of Acute Pancreatitis. Which laboratory result should the nurse prioritize for monitoring potential life-threatening complications?",
-        options: {
-            A: "Serum Amylase 400 U/L.",
-            B: "Serum Calcium 6.8 mg/dL.",
-            C: "Serum Lipase 500 U/L.",
-            D: "WBC count 12,000/mm³."
-        },
+        vignette: "Acute Pancreatitis. Priority lab to monitor for life-threatening complication?",
+        options: { A: "Amylase 400", B: "Calcium 6.8 mg/dL", C: "Lipase 500", D: "WBC 12,000" },
         correct: "B",
-        contentValue: "Gastrointestinal: Pancreatitis Complications",
-        str_rationale: "STR focuses on the enzymes (A or C) to confirm the diagnosis.",
-        scfhs_rationale: "SCFHS trapping: While enzymes confirm the disease, hypocalcemia (B) causes tetany and respiratory failure. (B) is the 'Safe Action' priority. (A), (C), and (D) are expected findings (Delays)."
+        scfhs_rationale: "Hypocalcemia in pancreatitis can lead to tetany and airway closure."
     },
     {
         id: 118,
-        vignette: "A nurse is working in a disaster area where a building collapsed. A patient has a large piece of wood impaled in the thigh. What should the nurse do?",
-        options: {
-            A: "Remove the wood immediately to assess the wound.",
-            B: "Stabilize the wood with bulky dressings and leave it in place.",
-            C: "Cut the wood shorter to make transport easier.",
-            D: "Apply a tourniquet above the impaled object."
-        },
+        vignette: "Impaled piece of wood in the thigh. Action?",
+        options: { A: "Remove immediately", B: "Stabilize with bulky dressings", C: "Cut it shorter", D: "Tourniquet above" },
         correct: "B",
-        contentValue: "Emergency: Impaled Objects",
-        str_rationale: "STR might try to remove it (A) or use a tourniquet (D).",
-        scfhs_rationale: "SCFHS: Removal (A) can cause uncontrollable hemorrhage. (B) is the 'Safe Action'. (C) and (D) are 'Unsafe' without specific indications."
+        scfhs_rationale: "Removing impaled objects can cause fatal hemorrhage; stabilize in place."
     },
     {
         id: 119,
-        vignette: "A patient with a history of COPD is prescribed a new inhaler: Tiotropium (Spiriva). What is the most important teaching point for this medication?",
-        options: {
-            A: "Rinse your mouth with water after each use.",
-            B: "This is a 'rescue' inhaler to be used during an attack.",
-            C: "The capsules are for inhalation only and must not be swallowed.",
-            D: "Use the medication only when you feel short of breath."
-        },
+        vignette: "Teaching Tiotropium (Spiriva) inhaler. Key point?",
+        options: { A: "Rinse mouth after", B: "Use for rescue", C: "Do not swallow capsules", D: "Use only when SOB" },
         correct: "C",
-        contentValue: "Medication Safety: Inhaler Education",
-        str_rationale: "STR might apply the 'rinse mouth' rule (A) meant for steroids.",
-        scfhs_rationale: "SCFHS: A common error is swallowing the capsule. (C) is the 'Safe Action' teaching. (A) is for steroids (Delay). (B) and (D) are 'Unsafe' (it is a maintenance drug)."
+        scfhs_rationale: "Spiriva capsules are for the inhaler device, not for oral swallowing."
     },
     {
         id: 120,
-        vignette: "The nurse is caring for a patient with a peripherally inserted central catheter (PICC). The nurse notes the patient’s arm is swollen and the skin is taut and shiny. What should the nurse suspect?",
-        options: {
-            A: "Normal inflammation from the insertion.",
-            B: "Phlebitis or Deep Vein Thrombosis (DVT).",
-            C: "Infiltration of the IV fluids.",
-            D: "Allergic reaction to the catheter material."
-        },
+        vignette: "PICC line arm is swollen, taut, and shiny. Suspect?",
+        options: { A: "Normal inflammation", B: "Phlebitis / DVT", C: "Infiltration", D: "Allergy" },
         correct: "B",
-        contentValue: "Clinical Safety: PICC Complications",
-        str_rationale: "STR might assume infiltration (C) as with a peripheral IV.",
-        scfhs_rationale: "SCFHS: Arm swelling with a PICC is a high-risk sign for DVT. (B) is the 'Safe Action' assessment. (A), (C), and (D) are 'Delays/Unsafe'."
+        scfhs_rationale: "Swelling of the limb with a central line is a major indicator of DVT."
     }
 ];
 
-function renderQuiz() {
-    const container = document.getElementById('quiz-container');
-    testItems.forEach((item, index) => {
-        const card = document.createElement('div');
-        card.className = 'question-card';
-        card.innerHTML = `
-            <div class="vignette"><strong>Q${index + 1}:</strong> ${item.vignette}</div>
-            <div class="options-list" id="q${item.id}">
-                ${Object.entries(item.options).map(([key, val]) => `
-                    <div class="option-item" onclick="selectOption(${item.id}, '${key}')" data-key="${key}">
-                        <strong>${key}.</strong> ${val}
-                    </div>
+function renderQuestions() {
+    const container = document.getElementById('quizContainer');
+    container.innerHTML = questions.map((q, i) => `
+        <div class="question-block" id="qBlock${q.id}">
+            <div class="question-text">${q.id}. ${q.vignette}</div>
+            <div class="options">
+                ${Object.entries(q.options).map(([key, val]) => `
+                    <label><input type="radio" name="q${q.id}" value="${key}"> ${key}: ${val}</label>
                 `).join('')}
             </div>
-        `;
-        container.appendChild(card);
-    });
+        </div>
+    `).join('');
 }
 
-let userAnswers = {};
-
-function selectOption(qid, key) {
-    userAnswers[qid] = key;
-    const options = document.querySelectorAll(`#q${qid} .option-item`);
-    options.forEach(opt => {
-        opt.classList.remove('selected');
-        if(opt.getAttribute('data-key') === key) opt.classList.add('selected');
-    });
-}
-
-function calculateScore() {
+function calculateResults() {
     let score = 0;
-    const resultArea = document.getElementById('detailed-analysis');
-    resultArea.innerHTML = '';
+    let reviewHTML = "";
     
-    testItems.forEach(item => {
-        const isCorrect = userAnswers[item.id] === item.correct;
+    questions.forEach(q => {
+        const selected = document.querySelector(`input[name="q${q.id}"]:checked`);
+        const isCorrect = selected && selected.value === q.correct;
         if(isCorrect) score++;
 
-        const div = document.createElement('div');
-        div.className = 'question-card';
-        div.style.borderLeftColor = isCorrect ? '#27ae60' : '#c0392b';
-        div.innerHTML = `
-            <p><strong>Question ${item.id} Result: ${isCorrect ? 'CORRECT' : 'INCORRECT'}</strong></p>
-            <p>Your Answer: ${userAnswers[item.id] || 'None'} | Correct Answer: ${item.correct}</p>
-            <div class="rationale-box">
-                <span class="tag">Content</span> ${item.contentValue}<br><br>
-                <span class="tag">STR Analysis</span> ${item.str_rationale}<br><br>
-                <span class="tag">SCFHS Rationale</span> ${item.scfhs_rationale}
+        const block = document.getElementById(`qBlock${q.id}`);
+        block.className = `question-block ${isCorrect ? 'correct' : 'wrong'}`;
+
+        reviewHTML += `
+            <div style="margin-bottom:15px; border-bottom:1px solid #eee; padding:10px;">
+                <strong>Q${q.id}:</strong> Correct Key: <b style="color:green">${q.correct}</b> | 
+                Your Answer: <b style="color:${isCorrect ? 'green' : 'red'}">${selected ? selected.value : 'None'}</b>
+                <div class="rationale-box"><strong>Rationale:</strong> ${q.scfhs_rationale}</div>
             </div>
         `;
-        resultArea.appendChild(div);
     });
 
-    const finalPercent = (score / testItems.length) * 100;
-    document.getElementById('score-text').innerText = `Final Score: ${finalPercent.toFixed(1)}% (${score}/${testItems.length})`;
-    document.getElementById('score-text').style.color = finalPercent >= 70 ? '#27ae60' : '#c0392b';
-    document.getElementById('result-area').style.display = 'block';
+    const percent = Math.round((score / questions.length) * 100);
+    document.getElementById('finalScoreText').innerText = `${score} / ${questions.length}`;
+    document.getElementById('finalPercentageText').innerText = `${percent}%`;
+    document.getElementById('passFailStatus').innerText = percent >= 70 ? "PASSED" : "FAILED";
+    document.getElementById('passFailStatus').style.color = percent >= 70 ? "green" : "red";
+    
+    document.getElementById('detailedReview').innerHTML = reviewHTML;
+    document.getElementById('resultsSummary').style.display = 'block';
+    document.getElementById('submitArea').style.display = 'none';
     window.scrollTo(0, document.body.scrollHeight);
 }
 
-renderQuiz();
-</script>
+// Timer 60 menit
+let time = 3600;
+setInterval(() => {
+    let mins = Math.floor(time / 60);
+    let secs = time % 60;
+    document.getElementById('timer').innerText = `Time Remaining: ${mins}:${secs < 10 ? '0'+secs : secs}`;
+    if(time > 0) time--;
+}, 1000);
 
+window.onload = renderQuestions;
+</script>
 </body>
 </html>
