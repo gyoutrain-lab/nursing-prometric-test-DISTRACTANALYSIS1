@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -59,7 +58,7 @@
 
 <script>
 // I have truncated the questions for space, but ensured the structure matches your needs perfectly.
-const questions = [   
+const questions = [
     {
         id: 1,
         vignette: "A 56-year-old man is 8 hours postoperative following an abdominoperineal resection with the creation of a colostomy. During the routine assessment, the nurse inspects the new stoma site. Which of the following findings should the nurse expect at this early stage after surgery?",
@@ -1602,63 +1601,89 @@ const questions = [
     }
 ];
 
+// 1. Function to display questions on the page
 function renderQuestions() {
     const container = document.getElementById('quizContainer');
-    container.innerHTML = questions.map((q, i) => `
-        <div class="question-block" id="qBlock${q.id}">
-            <div class="question-text">${q.id}. ${q.vignette}</div>
+    let html = '';
+    
+    questions.forEach((q, index) => {
+        html += `
+        <div class="question-block" id="block-${q.id}">
+            <div class="question-text">${index + 1}. ${q.vignette}</div>
             <div class="options">
-                ${Object.entries(q.options).map(([key, val]) => `
-                    <label><input type="radio" name="q${q.id}" value="${key}"> ${key}: ${val}</label>
+                ${Object.entries(q.options).map(([letter, text]) => `
+                    <label>
+                        <input type="radio" name="q${q.id}" value="${letter}">
+                        ${letter}: ${text}
+                    </label>
                 `).join('')}
             </div>
-        </div>
-    `).join('');
+        </div>`;
+    });
+    
+    container.innerHTML = html;
 }
 
-function calculateResults() {
-    let score = 0;
-    let reviewHTML = "";
+// 2. Timer Logic
+let timeLeft = 3600; // 60 minutes
+const timerEl = document.getElementById('timer');
+
+const timerInterval = setInterval(() => {
+    let minutes = Math.floor(timeLeft / 60);
+    let seconds = timeLeft % 60;
+    timerEl.innerText = `Time Remaining: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
     
-    questions.forEach(q => {
+    if (timeLeft <= 0) {
+        clearInterval(timerInterval);
+        calculateResults();
+    }
+    timeLeft--;
+}, 1000);
+
+// 3. Calculation and Review Logic
+function calculateResults() {
+    clearInterval(timerInterval); // Stop timer
+    let score = 0;
+    let reviewHtml = '';
+
+    questions.forEach((q) => {
         const selected = document.querySelector(`input[name="q${q.id}"]:checked`);
         const isCorrect = selected && selected.value === q.correct;
-        if(isCorrect) score++;
+        
+        if (isCorrect) score++;
 
-        const block = document.getElementById(`qBlock${q.id}`);
+        // Color the question blocks
+        const block = document.getElementById(`block-${q.id}`);
         block.className = `question-block ${isCorrect ? 'correct' : 'wrong'}`;
 
-        reviewHTML += `
-            <div style="margin-bottom:15px; border-bottom:1px solid #eee; padding:10px;">
-                <strong>Q${q.id}:</strong> Correct Key: <b style="color:green">${q.correct}</b> | 
-                Your Answer: <b style="color:${isCorrect ? 'green' : 'red'}">${selected ? selected.value : 'None'}</b>
-                <div class="rationale-box"><strong>Rationale:</strong> ${q.scfhs_rationale}</div>
+        // Build review details
+        reviewHtml += `
+            <div style="margin-bottom: 15px;">
+                <strong>Q${q.id}: ${isCorrect ? '✅ Correct' : '❌ Incorrect'}</strong><br>
+                Correct Answer: <b>${q.correct}</b><br>
+                <div class="rationale-box">${q.rationale}</div>
             </div>
         `;
     });
 
-    const percent = Math.round((score / questions.length) * 100);
-    document.getElementById('finalScoreText').innerText = `${score} / ${questions.length}`;
-    document.getElementById('finalPercentageText').innerText = `${percent}%`;
-    document.getElementById('passFailStatus').innerText = percent >= 70 ? "PASSED" : "FAILED";
-    document.getElementById('passFailStatus').style.color = percent >= 70 ? "green" : "red";
+    const percentage = Math.round((score / questions.length) * 100);
     
-    document.getElementById('detailedReview').innerHTML = reviewHTML;
+    // Update UI
+    document.getElementById('finalScoreText').innerText = `${score}/${questions.length}`;
+    document.getElementById('finalPercentageText').innerText = `${percentage}%`;
+    document.getElementById('passFailStatus').innerText = percentage >= 70 ? "PASSED" : "FAILED";
+    document.getElementById('passFailStatus').style.color = percentage >= 70 ? "green" : "red";
+    
+    document.getElementById('detailedReview').innerHTML = reviewHtml;
     document.getElementById('resultsSummary').style.display = 'block';
     document.getElementById('submitArea').style.display = 'none';
-    window.scrollTo(0, document.body.scrollHeight);
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Timer 60 menit
-let time = 3600;
-setInterval(() => {
-    let mins = Math.floor(time / 60);
-    let secs = time % 60;
-    document.getElementById('timer').innerText = `Time Remaining: ${mins}:${secs < 10 ? '0'+secs : secs}`;
-    if(time > 0) time--;
-}, 1000);
-
+// Start rendering
 window.onload = renderQuestions;
 </script>
+
 </body>
 </html>
